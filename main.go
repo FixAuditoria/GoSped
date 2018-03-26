@@ -5,8 +5,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/chapzin/IiniciandoGo/Model"
-	"github.com/chapzin/IiniciandoGo/Utilidades"
+	"github.com/chapzin/GoSped/Model"
+	"github.com/chapzin/GoSped/Utilidades"
 )
 
 func main() {
