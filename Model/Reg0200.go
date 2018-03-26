@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// Reg0200 : Tabela de Identificação do Item (Produtos e Serviços)
 type Reg0200 struct {
 	Reg        string
 	CodItem    string

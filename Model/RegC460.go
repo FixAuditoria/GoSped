@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC460 : Documento Fiscal Emitido por ECF (código 02, 2D e 60)
 type RegC460 struct {
 	Reg      string
 	CodMod   string

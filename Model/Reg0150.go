@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// Reg0150 : Tabela de Cadastro do Participante
 type Reg0150 struct {
 	Reg      string
 	CodPart  string

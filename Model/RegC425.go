@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC425 : Resumo de itens do movimento diário (código 02 e 2D)
 type RegC425 struct {
 	Reg      string
 	CodItem  string

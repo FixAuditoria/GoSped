@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC100 : Documento - Nota Fiscal Eletrônica (código 55) e Nota Fiscal Eletrônica para Consumidor Final (código 65)
 type RegC100 struct {
 	Reg        string
 	IndOper    string

@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC490 : Registro Analítico do movimento diário (código 02, 2D e 60)
 type RegC490 struct {
 	Reg      string
 	CstIcms  string

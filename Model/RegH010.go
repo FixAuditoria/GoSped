@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegH010 : Inventário
 type RegH010 struct {
 	Reg      string
 	CodItem  string

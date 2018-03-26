@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC400 : Equipamento ECF (código 02, 2D e 60),
 type RegC400 struct {
 	Reg    string
 	CodMod string

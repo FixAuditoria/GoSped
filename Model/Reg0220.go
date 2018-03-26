@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// Reg0220 : Fatores de Conversão de Unidades
 type Reg0220 struct {
 	Reg      string
 	UnidConv string

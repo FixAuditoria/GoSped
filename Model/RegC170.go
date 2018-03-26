@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC170 : Complemento de Documento - Itens do Documento (código 01, 1B, 04 e 55)
 type RegC170 struct {
 	Reg           string
 	NumItem       string

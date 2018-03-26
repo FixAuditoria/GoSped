@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// Reg0100 : Dados do Contabilista
 type Reg0100 struct {
 	Reg      string
 	Nome     string

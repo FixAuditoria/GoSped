@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC405 : Redução Z (código 02, 2D e 60)
 type RegC405 struct {
 	Reg       string
 	DtDoc     time.Time

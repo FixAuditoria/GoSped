@@ -2,6 +2,7 @@ package Model
 
 import "time"
 
+// RegC470 : Itens do Documento Fiscal Emitido por ECF (código 02 e 2D)
 type RegC470 struct {
 	Reg      string
 	CodItem  string
