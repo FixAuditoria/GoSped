@@ -1,7 +1,5 @@
 package Model
 
-import "time"
-
 // Reg0100 : Dados do Contabilista
 type Reg0100 struct {
 	Reg      string
@@ -18,7 +16,7 @@ type Reg0100 struct {
 	Fax      string
 	Email    string
 	CodMun   string
-	DtIni    time.Time
-	DtFin    time.Time
+	DtIni    string
+	DtFin    string
 	CnpjSped string
 }
