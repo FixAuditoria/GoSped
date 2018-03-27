@@ -27,7 +27,7 @@ type Reg0100 struct {
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
-func (r *Reg0100) Populate(l []string) {
+func (r *Reg0100) Populate(l []string, reg0000 Reg0000) {
 	r.Reg = l[1]
 	r.Nome = l[2]
 	r.Cpf = l[3]
@@ -42,7 +42,7 @@ func (r *Reg0100) Populate(l []string) {
 	r.Fax = l[12]
 	r.Email = l[13]
 	r.CodMun = l[14]
-	r.DtIni = l[15]
-	r.DtFin = l[16]
-	r.CnpjSped = l[17]
+	r.DtIni = reg0000.DtIni
+	r.DtFin = reg0000.DtFin
+	r.CnpjSped = reg0000.Cnpj
 }
