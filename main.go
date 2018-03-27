@@ -8,7 +8,7 @@ import (
 	. "github.com/chapzin/GoSped/ConfigTom"
 	. "github.com/chapzin/GoSped/Dao"
 	. "github.com/chapzin/GoSped/Model"
-	"github.com/chapzin/GoSped/Utilidades"
+	. "github.com/chapzin/GoSped/Utilidades"
 )
 
 var cofing2 = Config{}
@@ -24,9 +24,9 @@ func init() {
 
 func main() {
 
-	arquivos, _ := Utilidades.ListarArquivos("./speds/")
+	arquivos, _ := ListFiles("./speds/")
 	for _, arq := range arquivos {
-		conteudo, err := Utilidades.LerTexto(arq)
+		conteudo, err := ReadFile(arq)
 		if err != nil {
 			log.Fatalf("Erro:", err)
 		}
@@ -41,7 +41,7 @@ func main() {
 				if linha[:1] == "|" {
 					l := strings.Split(linha, "|")
 					if l[1] == "0000" {
-						reg0000.Popular(l)
+						reg0000.Populate(l)
 						err := reg0000Dao.Insert(reg0000)
 						if err != nil {
 							log.Panic(err)

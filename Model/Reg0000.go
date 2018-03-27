@@ -24,7 +24,8 @@ type Reg0000 struct {
 	IndAtiv   string        `bson:"indativ" json:"indativ"`
 }
 
-func (r *Reg0000) Popular(l []string) {
+// Populate : O metodo é responsavel por preencher os dados pelo sped
+func (r *Reg0000) Populate(l []string) {
 	r.Reg = l[1]
 	r.CodVer = l[2]
 	r.CodFin = l[3]

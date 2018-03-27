@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 )
 
-// Ler o arquivo texto e retorna slice de string
-func LerTexto(caminhoArquivo string) ([]string, error) {
+// ReadFile : Ler o arquivo texto e retorna slice de string
+func ReadFile(caminhoArquivo string) ([]string, error) {
 	arquivo, err := os.Open(caminhoArquivo)
 	if err != nil {
 		return nil, err
@@ -24,8 +24,8 @@ func LerTexto(caminhoArquivo string) ([]string, error) {
 	return linhas, scanner.Err()
 }
 
-// Apenas uma conversao de nome do glob para ListarArquivos
-func ListarArquivos(caminho string) ([]string, error) {
+// ListarArquivos :  Apenas uma conversao de nome do glob para ListarArquivos
+func ListFiles(caminho string) ([]string, error) {
 	files, err := filepath.Glob(caminho + "*.txt")
 	if err != nil {
 		return nil, err
