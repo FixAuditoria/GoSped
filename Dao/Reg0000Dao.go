@@ -16,7 +16,7 @@ type Reg0000Dao struct {
 var db *mgo.Database
 
 const (
-	COLLECTION = "Registros"
+	COLLECTION = "reg0000"
 )
 
 func (r *Reg0000Dao) Connect() {
