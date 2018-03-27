@@ -1,13 +1,26 @@
 package Model
 
-import "time"
+import (
+	"gopkg.in/mgo.v2/bson"
+)
 
 // RegC465 : Complemento do Cupom Fiscal Eletrônico Emitido por ECF - CF-e-ECF (código 60)
 type RegC465 struct {
-	Reg    string
-	ChvCfe string
-	NumCcF string
-	DtIni  time.Time
-	DtFin  time.Time
-	Cnpj   string
+	ID     bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
+	Reg    string        `bson:"reg" json:"reg"`
+	ChvCfe string        `bson:"chvcfe" json:"chvcfe"`
+	NumCcF string        `bson:"numccf" json:"numccf"`
+	DtIni  string        `bson:"dtini" json:"dtini"`
+	DtFin  string        `bson:"dtfin" json:"dtfin"`
+	Cnpj   string        `bson:"cnpj" json:"cnpj"`
+}
+
+// Populate: O métdodo é responsável por preencher os dados pelo sped
+func (r *RegC465) Populate(l []string, reg0000 Reg0000) {
+	r.Reg = l[1]
+	r.ChvCfe = l[2]
+	r.NumCcF = l[3]
+	r.DtIni = reg0000.DtIni
+	r.DtFin = reg0000.DtFin
+	r.Cnpj = reg0000.Cnpj
 }

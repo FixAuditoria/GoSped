@@ -1,15 +1,28 @@
 package Model
 
-import "time"
+import "gopkg.in/mgo.v2/bson"
 
 // RegC400 : Equipamento ECF (código 02, 2D e 60),
 type RegC400 struct {
-	Reg    string
-	CodMod string
-	EcfMod string
-	EcfFab string
-	EcfCx  string
-	DtIni  time.Time
-	DtFin  time.Time
-	Cnpj   string
+	ID     bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
+	Reg    string        `bson:"reg" json:"reg"`
+	CodMod string        `bson:"codmod" json:"codmod"`
+	EcfMod string        `bson:"ecfmod" json:"ecfmod"`
+	EcfFab string        `bson:"ecffab" json:"ecffab"`
+	EcfCx  string        `bson:"ecfcx" json:"ecfcx"`
+	DtIni  string        `bson:"dtini" json:"dtini"`
+	DtFin  string        `bson:"dtfin" json:"dtfin"`
+	Cnpj   string        `bson:"cnpj" json:"cnpj"`
+}
+
+// Populate: O métdodo é responsável por preencher os dados pelo sped
+func (r *RegC400) Populate(l []string, reg0000 Reg0000) {
+	r.Reg = l[1]
+	r.CodMod = l[2]
+	r.EcfMod = l[3]
+	r.EcfFab = l[4]
+	r.EcfCx = l[5]
+	r.DtIni = reg0000.DtIni
+	r.DtFin = reg0000.DtFin
+	r.Cnpj = reg0000.Cnpj
 }
