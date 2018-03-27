@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	. "github.com/chapzin/GoSped/ConfigTom"
+	. "github.com/chapzin/GoSped/Controller"
 	. "github.com/chapzin/GoSped/Dao"
 	. "github.com/chapzin/GoSped/Model"
 	. "github.com/chapzin/GoSped/Utilidades"
@@ -31,11 +32,13 @@ func main() {
 			log.Fatalf("Erro:", err)
 		}
 		var reg0000 Reg0000
+		var reg0200 Reg0200
+		var regC100 RegC100
+		var controllerC100 RegC100Controller
 		// var codigo string
-		var chave string
+		// var chave string
 		for _, linha := range conteudo {
 			// fmt.Println(ind, linha)
-			var reg0200 Reg0200
 
 			if len(linha) > 0 {
 				if linha[:1] == "|" {
@@ -57,12 +60,23 @@ func main() {
 					}
 					// if codigo != "" {
 					if l[1] == "C100" {
-						chave = l[9]
+						regC100.Populate(l, reg0000)
+						semchave := controllerC100.VerificarChave(regC100)
+						if semchave != "" {
+							fmt.Println(reg0000)
+							fmt.Println(regC100)
+							fmt.Println(semchave)
+						}
+						verifica2 := controllerC100.VerificarDtEmissaoChave(regC100)
+						if verifica2 != "" {
+							fmt.Println(verifica2)
+						}
+
 					}
 
 					if l[1] == "C170" {
 						if len(l[3]) != 10 {
-							fmt.Println(l[3] + ";" + chave)
+							// fmt.Println(l[3] + ";" + chave)
 						}
 
 					}
