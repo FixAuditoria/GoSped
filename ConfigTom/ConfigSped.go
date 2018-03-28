@@ -6,10 +6,11 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// Config : Usando sistema de TOML para configuracoes de conexao de banco de dados mongo
+// ConfigSped : Usando sistema de TOML para configuracoes de conexao de banco de dados mongo
 type ConfigSped struct {
-	Server   string
-	Database string
+	Server     string
+	Database   string
+	PathImport string
 }
 
 func (c *ConfigSped) Read() {

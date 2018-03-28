@@ -1,2 +1,3 @@
 server="localhost"
 database="sped"
+pathimport="./importar/"
