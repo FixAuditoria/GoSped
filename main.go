@@ -12,7 +12,7 @@ import (
 	. "github.com/chapzin/GoSped/Utilidades"
 )
 
-var cofing2 = Config{}
+var cofing2 = ConfigSped{}
 var reg0000Dao = Reg0000Dao{}
 
 func init() {
@@ -35,6 +35,8 @@ func main() {
 		var reg0200 Reg0200
 		var regC100 RegC100
 		var controllerC100 RegC100Controller
+		var importar ImportController
+		importar.Importar(arq)
 		// var codigo string
 		// var chave string
 		for _, linha := range conteudo {

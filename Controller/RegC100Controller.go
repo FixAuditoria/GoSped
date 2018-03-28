@@ -8,6 +8,7 @@ type RegC100Controller struct {
 	regC100 Model.RegC100
 }
 
+// VerificarChave : Analisa se a nota nao é inutilizada o modelo é 55 e se a chave está vazia e retorna o erro de chave nao informada
 func (c *RegC100Controller) VerificarChave(c100 Model.RegC100) string {
 	var validacao string
 	c.regC100 = c100
@@ -21,6 +22,7 @@ func (c *RegC100Controller) VerificarChave(c100 Model.RegC100) string {
 	return validacao
 }
 
+// VerificarDtEmissaoChave : Analisa se a nota tem status normal
 func (c *RegC100Controller) VerificarDtEmissaoChave(c100 Model.RegC100) string {
 	var validacao string
 	c.regC100 = c100

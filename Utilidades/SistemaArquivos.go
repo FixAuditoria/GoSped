@@ -26,7 +26,7 @@ func ReadFile(caminhoArquivo string) ([]string, error) {
 
 // ListarArquivos :  Apenas uma conversao de nome do glob para ListarArquivos
 func ListFiles(caminho string) ([]string, error) {
-	files, err := filepath.Glob(caminho + "*.txt")
+	files, err := filepath.Glob(caminho + "*")
 	if err != nil {
 		return nil, err
 	}

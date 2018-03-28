@@ -7,12 +7,12 @@ import (
 )
 
 // Config : Usando sistema de TOML para configuracoes de conexao de banco de dados mongo
-type Config struct {
+type ConfigSped struct {
 	Server   string
 	Database string
 }
 
-func (c *Config) Read() {
+func (c *ConfigSped) Read() {
 	if _, err := toml.DecodeFile("config.toml", &c); err != nil {
 		log.Fatal(err)
 	}
