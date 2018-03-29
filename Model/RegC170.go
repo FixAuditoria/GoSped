@@ -46,13 +46,14 @@ type RegC170 struct {
 	CodCta        string        `bson:"codcta" json:"codcta"`
 	EntradaSaida  string        `bson:"entradasaida" json:"entradasaida"`
 	NumDoc        string        `bson:"numdoc" json:"numdoc"`
+	ChvNfe        string        `bson:"chvnfe" json:"chvnfe"`
 	DtIni         string        `bson:"dtini" json:"dtini"`
 	DtFin         string        `bson:"dtfin" json:"dtfin"`
 	Cnpj          string        `bson:"cnpj" json:"cnpj"`
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
-func (r *RegC170) Populate(l []string, reg0000 Reg0000) {
+func (r *RegC170) Populate(l []string, reg0000 Reg0000, regC100 RegC100) {
 	r.Reg = l[1]
 	r.NumItem = l[2]
 	r.CodItem = l[3]
@@ -90,8 +91,9 @@ func (r *RegC170) Populate(l []string, reg0000 Reg0000) {
 	r.AliqCofins02 = l[35]
 	r.VlCofins = l[36]
 	r.CodCta = l[37]
-	r.EntradaSaida = l[38]
-	r.NumDoc = l[39]
+	r.EntradaSaida = regC100.DtES
+	r.NumDoc = regC100.NumDoc
+	r.ChvNfe = regC100.ChvNfe
 	r.DtIni = reg0000.DtIni
 	r.DtFin = reg0000.DtFin
 	r.Cnpj = reg0000.Cnpj

@@ -24,6 +24,8 @@ var reg0150Dao Dao.Reg0150Dao
 var reg0190Dao Dao.Reg0190Dao
 var reg0200Dao Dao.Reg0200Dao
 var reg0220Dao Dao.Reg0220Dao
+var regC100Dao Dao.RegC100Dao
+var regC170Dao Dao.RegC170Dao
 
 func init() {
 	config2.Read()
@@ -50,6 +52,14 @@ func init() {
 	reg0220Dao.Server = config2.Server
 	reg0220Dao.Database = config2.Database
 	reg0220Dao.Connect()
+
+	regC100Dao.Server = config2.Server
+	regC100Dao.Database = config2.Database
+	regC100Dao.Connect()
+
+	regC170Dao.Server = config2.Server
+	regC170Dao.Database = config2.Database
+	regC170Dao.Connect()
 }
 
 func (s *SpedController) addMongo(arquivo string) {
@@ -63,8 +73,8 @@ func (s *SpedController) addMongo(arquivo string) {
 	var reg0190 Model.Reg0190
 	var reg0200 Model.Reg0200
 	var reg0220 Model.Reg0220
-	// var regC100 Model.RegC100
-	// var regC170 Model.RegC170
+	var regC100 Model.RegC100
+	var regC170 Model.RegC170
 	// var regC190 Model.RegC190
 	// var regC400 Model.RegC400
 	// var regC405 Model.RegC405
@@ -128,9 +138,19 @@ func (s *SpedController) addMongo(arquivo string) {
 
 					}
 					if l[1] == "C100" {
+						regC100.Populate(l, reg0000)
+						err := regC100Dao.Insert(regC100)
+						if err != nil {
+							fmt.Println(err)
+						}
 
 					}
 					if l[1] == "C170" {
+						regC170.Populate(l, reg0000, regC100)
+						err := regC170Dao.Insert(regC170)
+						if err != nil {
+							fmt.Println(err)
+						}
 
 					}
 					if l[1] == "C190" {
