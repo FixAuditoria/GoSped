@@ -28,6 +28,12 @@ func (r *RegC170Dao) FindAll() ([]Model.RegC170, error) {
 	return registros, err
 }
 
+func (r *RegC170Dao) FindByCnpj(cnpjsped string) ([]Model.RegC170, error) {
+	var registros []Model.RegC170
+	err := db.C(COLLECTIONC170).Find(bson.M{"cnpjsped": cnpjsped}).All(&registros)
+	return registros, err
+}
+
 func (r *RegC170Dao) FindById(id string) (Model.RegC170, error) {
 	var regC170 Model.RegC170
 	err := db.C(COLLECTIONC170).Find(bson.ObjectIdHex(id)).One(&regC170)

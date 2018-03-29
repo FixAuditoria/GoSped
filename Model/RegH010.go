@@ -21,7 +21,7 @@ type RegH010 struct {
 	DtInv    string        `bson:"dtinv" json:"dtinv"`
 	DtIni    string        `bson:"dtini" json:"dtini"`
 	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	Cnpj     string        `bson:"cnpj" json:"cnpj"`
+	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
@@ -40,5 +40,5 @@ func (r *RegH010) Populate(l []string, reg0000 Reg0000) {
 	r.DtInv = l[12]
 	r.DtIni = reg0000.DtIni
 	r.DtFin = reg0000.DtFin
-	r.Cnpj = reg0000.Cnpj
+	r.CnpjSped = reg0000.Cnpj
 }

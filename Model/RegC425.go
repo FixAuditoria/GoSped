@@ -16,7 +16,7 @@ type RegC425 struct {
 	VlCofins string        `bson:"vlcofins" json:"vlcofins"`
 	DtIni    string        `bson:"dtini" json:"dtini"`
 	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	Cnpj     string        `bson:"cnpj" json:"cnpj"`
+	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
@@ -30,5 +30,5 @@ func (r *RegC425) Populate(l []string, reg0000 Reg0000) {
 	r.VlCofins = l[7]
 	r.DtIni = reg0000.DtIni
 	r.DtFin = reg0000.DtFin
-	r.Cnpj = reg0000.Cnpj
+	r.CnpjSped = reg0000.Cnpj
 }

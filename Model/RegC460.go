@@ -19,7 +19,7 @@ type RegC460 struct {
 	NomAdq   string        `bson:"nomadq" json:"nomadq"`
 	DtIni    string        `bson:"dtini" json:"dtini"`
 	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	Cnpj     string        `bson:"cnpj" json:"cnpj"`
+	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
@@ -36,5 +36,5 @@ func (r *RegC460) Populate(l []string, reg0000 Reg0000) {
 	r.NomAdq = l[10]
 	r.DtIni = reg0000.DtIni
 	r.DtFin = reg0000.DtFin
-	r.Cnpj = reg0000.Cnpj
+	r.CnpjSped = reg0000.Cnpj
 }

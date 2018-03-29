@@ -16,7 +16,7 @@ type RegC405 struct {
 	VlBrt     string        `bson:"vlbrt" json:"vlbrt"`
 	DtIni     string        `bson:"dtini" json:"dtini"`
 	DtFin     string        `bson:"dtfin" json:"dtfin"`
-	Cnpj      string        `bson:"cnpj" json:"cnpj"`
+	CnpjSped  string        `bson:"cnpjsped" json:"cnpjsped"`
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
@@ -30,5 +30,5 @@ func (r *RegC405) Populate(l []string, reg0000 Reg0000) {
 	r.VlBrt = l[7]
 	r.DtIni = reg0000.DtIni
 	r.DtFin = reg0000.DtFin
-	r.Cnpj = reg0000.Cnpj
+	r.CnpjSped = reg0000.Cnpj
 }

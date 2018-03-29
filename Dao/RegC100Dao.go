@@ -34,6 +34,12 @@ func (r *RegC100Dao) FindById(id string) (Model.RegC100, error) {
 	return regC100, err
 }
 
+func (r *RegC100Dao) FindByCnpj(cnpjsped string) ([]Model.RegC100, error) {
+	var registros []Model.RegC100
+	err := db.C(COLLECTIONC100).Find(bson.M{"cnpjsped": cnpjsped}).All(&registros)
+	return registros, err
+}
+
 func (r *RegC100Dao) Insert(regC100 Model.RegC100) error {
 	err := db.C(COLLECTIONC100).Insert(&regC100)
 	return err

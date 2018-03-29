@@ -12,7 +12,7 @@ type Reg0190 struct {
 	Descr    string        `bson:"descr" json:"descr"`
 	DtIni    string        `bson:"dtini" json:"dtini"`
 	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpj" json:"cnpj"`
+	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
