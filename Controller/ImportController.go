@@ -2,21 +2,7 @@ package Controller
 
 import (
 	"path/filepath"
-
-	"github.com/chapzin/GoSped/ConfigTom"
-	"github.com/chapzin/GoSped/Dao"
 )
-
-var cofing2 = ConfigTom.ConfigSped{}
-var reg0000Dao = Dao.Reg0000Dao{}
-
-func init() {
-	cofing2.Read()
-	reg0000Dao.Server = cofing2.Server
-	reg0000Dao.Database = cofing2.Database
-	reg0000Dao.Connect()
-
-}
 
 type ImportController struct {
 	arquivo string
