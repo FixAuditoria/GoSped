@@ -15,7 +15,6 @@ type Reg0220 struct {
 	DtIni    string        `bson:"dtini" json:"dtini"`
 	DtFin    string        `bson:"dtfin" json:"dtfin"`
 	CnpjSped string        `bson:"cnpj" json:"cnpj"`
-	Feito    string        `bson:"feito" json:"feito"`
 }
 
 // Populate: O métdodo é responsável por preencher os dados pelo sped
