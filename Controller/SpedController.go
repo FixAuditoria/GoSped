@@ -2,7 +2,6 @@ package Controller
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/chapzin/GoSped/Dao"
@@ -13,6 +12,7 @@ import (
 	"github.com/chapzin/GoSped/Utilidades"
 )
 
+// SpedController : Responsavel por adicionar os dados do sped e validar o conteudo
 type SpedController struct {
 	linha string
 }
@@ -120,7 +120,7 @@ func init() {
 func (s *SpedController) addMongo(arquivo string) {
 	conteudo, err := Utilidades.ReadFile(arquivo)
 	if err != nil {
-		log.Fatalf("Erro:", err)
+		fmt.Println(err)
 	}
 	var reg0000 Model.Reg0000
 	var reg0100 Model.Reg0100
@@ -301,7 +301,7 @@ func (s *SpedController) addMongo(arquivo string) {
 func (s *SpedController) validacoes(arquivo string) {
 	conteudo, err := Utilidades.ReadFile(arquivo)
 	if err != nil {
-		log.Fatalf("Erro:", err)
+		fmt.Println(err)
 	}
 	for _, linha := range conteudo {
 		if linha != "" {

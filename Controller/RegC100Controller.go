@@ -4,6 +4,7 @@ import (
 	"github.com/chapzin/GoSped/Model"
 )
 
+// RegC100Controller : Responsavel por fazer validacoes no registro C100 do sped
 type RegC100Controller struct {
 	regC100 Model.RegC100
 }

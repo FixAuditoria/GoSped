@@ -4,10 +4,12 @@ import (
 	"path/filepath"
 )
 
+// ImportController : Responsavel por separar e executar os comandos nos arquivos txt, csv e xml
 type ImportController struct {
 	arquivo string
 }
 
+// Importar : metodo responsavel pela separacao dos arquivos
 func (i *ImportController) Importar(arquivo string) {
 	extensao := filepath.Ext(arquivo)
 	if extensao == ".txt" || extensao == ".TXT" {
