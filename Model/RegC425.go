@@ -19,7 +19,7 @@ type RegC425 struct {
 	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
 }
 
-// Populate: O métdodo é responsável por preencher os dados pelo sped
+// Populate : O métdodo é responsável por preencher os dados pelo sped
 func (r *RegC425) Populate(l []string, reg0000 Reg0000) {
 	r.Reg = l[1]
 	r.CodItem = l[2]

@@ -1,3 +1,4 @@
 server="localhost"
 database="sped"
+databaseNfe="auditoria"
 pathimport="./importar/"
