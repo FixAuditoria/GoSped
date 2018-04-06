@@ -1,17 +1,16 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/chapzin/GoSped/ConfigTom"
-	"github.com/chapzin/GoSped/Dao"
+	"github.com/chapzin/GoSped/Controller"
 )
 
 var cofing2 = ConfigTom.ConfigSped{}
 
 // var regC170Dao Dao.RegC170Dao
 // var produtosNfe Dao.ProdutosNfeDao
-var regC425Dao Dao.RegC425Dao
+
+//var regC425Dao Dao.RegC425Dao
 
 // var regC100Dao Dao.RegC100Dao
 
@@ -31,21 +30,21 @@ func init() {
 	// produtosNfe.Database = cofing2.DataBaseNfe
 	// produtosNfe.Connect()
 
-	regC425Dao.Server = cofing2.Server
-	regC425Dao.Database = cofing2.Database
-	regC425Dao.Connect()
+	// regC425Dao.Server = cofing2.Server
+	// regC425Dao.Database = cofing2.Database
+	// regC425Dao.Connect()
 }
 
 func main() {
 	// ----------- Lista todos os itens dos cupons fiscais
-	itens, err := regC425Dao.FindAll()
-	if err != nil {
-		fmt.Println(err)
-	}
+	// itens, err := regC425Dao.FindAll()
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 
-	for _, item := range itens {
-		fmt.Println("" + item.DtVenda + ";" + item.CodItem + ";" + item.Qtd + ";" + item.Unid)
-	}
+	// for _, item := range itens {
+	// 	fmt.Println("" + item.DtVenda + ";" + item.CodItem + ";" + item.Qtd + ";" + item.Unid)
+	// }
 
 	// ----------- Lista todos os produtos baixados pelo scrapy da auditoria -----------
 	// produtos, err := produtosNfe.FindAll()
@@ -57,14 +56,16 @@ func main() {
 	// }
 
 	// --------------- Lista todas as chaves onde a situacao seja regular ----------------
-	// regc100s, err := regC100Dao.FindByCnpj("01990447000118")
+	// regc100s, err := regC100Dao.FindByCnpj("000000000")
 	// if err != nil {
 	// 	fmt.Println(err)
 	// }
 	// for _, regc100 := range regc100s {
 	// 	if regc100.CodSit == "00" {
 	// 		if regc100.ChvNfe != "" {
-	// 			fmt.Println(regc100.ChvNfe)
+	// 			if regc100.IndEmit == "0" {
+	// 				fmt.Println(regc100.ChvNfe)
+	// 			}
 	// 		}
 	// 	}
 	// }
@@ -81,11 +82,7 @@ func main() {
 
 	// }
 	// ----------------- Importa todos arquivos da pasta que fica no config.toml ------------------------
-	// var importar Controller.ImportController
-
-	// arquivos, _ := Utilidades.ListFiles(cofing2.PathImport)
-	// for _, arq := range arquivos {
-	// 	importar.Importar(arq)
-	// }
+	var importar Controller.ImportController
+	importar.Importar(cofing2.PathImport)
 
 }

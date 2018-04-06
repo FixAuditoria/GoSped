@@ -1,4 +1,4 @@
 server="localhost"
 database="sped"
-databaseNfe="auditoria"
+databaseNfe="auditoria_fortcolor_outras"
 pathimport="./importar/"
