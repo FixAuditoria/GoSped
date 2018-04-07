@@ -8,46 +8,22 @@
   version = "v0.3.0"
 
 [[projects]]
-  name = "github.com/labstack/gommon"
-  packages = ["color","log"]
-  revision = "6fe1405d73ec4bd4cd8a4ac8e2a2b2bf95d03954"
-  version = "0.2.4"
-
-[[projects]]
-  name = "github.com/mattn/go-colorable"
-  packages = ["."]
-  revision = "167de6bfdfba052fa6b2d3664c8f5272e23c9072"
-  version = "v0.0.9"
-
-[[projects]]
-  name = "github.com/mattn/go-isatty"
-  packages = ["."]
-  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
-  version = "v0.0.3"
+  name = "github.com/jinzhu/gorm"
+  packages = [".","dialects/postgres"]
+  revision = "6ed508ec6a4ecb3531899a69cbc746ccf65a4166"
+  version = "v1.9.1"
 
 [[projects]]
   branch = "master"
-  name = "github.com/valyala/bytebufferpool"
+  name = "github.com/jinzhu/inflection"
   packages = ["."]
-  revision = "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7"
+  revision = "04140366298a54a039076d798123ffa108fff46c"
 
 [[projects]]
   branch = "master"
-  name = "github.com/valyala/fasttemplate"
-  packages = ["."]
-  revision = "dcecefd839c4193db0d35b88ec65b4c12d360ab0"
-
-[[projects]]
-  branch = "master"
-  name = "golang.org/x/crypto"
-  packages = ["acme","acme/autocert"]
-  revision = "88942b9c40a4c9d203b82b3731787b672d6e809b"
-
-[[projects]]
-  branch = "master"
-  name = "golang.org/x/sys"
-  packages = ["unix"]
-  revision = "13d03a9a82fba647c21a0ef8fba44a795d0f0835"
+  name = "github.com/lib/pq"
+  packages = [".","hstore","oid"]
+  revision = "d34b9ff171c21ad295489235aec8b6626023cd04"
 
 [[projects]]
   branch = "v2"
@@ -58,6 +34,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "74fe6f23699b028c2f733bef4a3f7e3502329e4f02b78933bc451465037a7c40"
+  inputs-digest = "82c955dae67d5c29ee0f0771590864a47762d1b097fc46ba6575f4a7ea40e84d"
   solver-name = "gps-cdcl"
   solver-version = 1
