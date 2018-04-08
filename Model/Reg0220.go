@@ -1,20 +1,35 @@
 package Model
 
 import (
-	"gopkg.in/mgo.v2/bson"
+	"github.com/jinzhu/gorm"
 )
 
 // Reg0220 : Fatores de Conversão de Unidades
 type Reg0220 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	UnidConv string        `bson:"unidconv" json:"unidconv"`
-	FatConv  string        `bson:"fatconv" json:"fatconv"`
-	UnidCod  string        `bson:"unidcod" json:"unidcod"`
-	CodItem  string        `bson:"coditem" json:"coditem"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	gorm.Model
+	Reg      string `gorm:"type:varchar(4)" bson:"reg" json:"reg"`
+	UnidConv string `gorm:"type:varchar(6)" bson:"unidconv" json:"unidconv"`
+	FatConv  string `gorm:"type:varchar(20)" bson:"fatconv" json:"fatconv"`
+	UnidCod  string `gorm:"type:varchar(10)" bson:"unidcod" json:"unidcod"`
+	CodItem  string `gorm:"type:varchar(60)" bson:"coditem" json:"coditem"`
+	DtIni    string `gorm:"type:varchar(8)" bson:"dtini" json:"dtini"`
+	DtFin    string `gorm:"type:varchar(8)" bson:"dtfin" json:"dtfin"`
+	CnpjSped string `gorm:"type:varchar(14)" bson:"cnpjsped" json:"cnpjsped"`
+}
+
+// TableName : Funcao responsavel por definir o nome na tabela
+func (Reg0220) TableName() string {
+	return "reg0220"
+}
+
+// CreateDB : funcao para criar o banco de dados do Registro 0100
+func (r *Reg0220) CreateDB(db gorm.DB) {
+	db.AutoMigrate(r)
+}
+
+// DropDB : funcao para apagar banco de dados do Registro 0100
+func (r *Reg0220) DropDB(db gorm.DB) {
+	db.DropTable(r)
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

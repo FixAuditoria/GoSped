@@ -3,6 +3,8 @@ package Controller
 import (
 	"path/filepath"
 
+	"github.com/jinzhu/gorm"
+
 	"github.com/chapzin/GoSped/Utilidades"
 )
 
@@ -12,13 +14,13 @@ type ImportController struct {
 }
 
 // Importar : metodo responsavel pela separacao dos arquivos
-func (i *ImportController) Importar(path string) {
+func (i *ImportController) Importar(path string, db *gorm.DB) {
 	arquivos, _ := Utilidades.ListFiles(path)
 	for _, arq := range arquivos {
 		extensao := filepath.Ext(arq)
 		if extensao == ".txt" || extensao == ".TXT" {
 			var spedcontroller SpedController
-			spedcontroller.addMongo(arq)
+			spedcontroller.addMongo(arq, db)
 			spedcontroller.validacoes(arq)
 		}
 		if extensao == ".csv" || extensao == ".CSV" {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/chapzin/GoSped/ConfigTom"
-	"github.com/chapzin/GoSped/Model"
+	"github.com/chapzin/GoSped/Controller"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -86,8 +86,6 @@ func main() {
 
 	// }
 	// ----------------- Importa todos arquivos da pasta que fica no config.toml ------------------------
-	// var importar Controller.ImportController
-	// importar.Importar(cofing2.PathImport)
 	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=postgres dbname=auditoria password=test sslmode=disable")
 	db.Debug()
 	defer db.Close()
@@ -95,7 +93,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	var reg0000 Model.Reg0000
-	reg0000.DropDB(*db)
-	reg0000.CreateDB(*db)
+	var importar Controller.ImportController
+	importar.Importar(cofing2.PathImport, db)
+
 }

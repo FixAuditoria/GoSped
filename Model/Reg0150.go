@@ -1,28 +1,43 @@
 package Model
 
 import (
-	"gopkg.in/mgo.v2/bson"
+	"github.com/jinzhu/gorm"
 )
 
 // Reg0150 : Tabela de Cadastro do Participante
 type Reg0150 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	CodPart  string        `bson:"codpart" json:"codpart"`
-	Nome     string        `bson:"nome" json:"nome"`
-	CodPais  string        `bson:"codpais" json:"codpais"`
-	Cnpj     string        `bson:"cnpj" json:"cnpj"`
-	Cpf      string        `bson:"cpf" json:"cpf"`
-	Ie       string        `bson:"ie" json:"ie"`
-	CodMun   string        `bson:"codmun" json:"codmun"`
-	Suframa  string        `bson:"suframa" json:"suframa"`
-	Endereco string        `bson:"endereco" json:"endereco"`
-	Num      string        `bson:"num" json:"num"`
-	Compl    string        `bson:"compl" json:"compl"`
-	Bairro   string        `bson:"bairro" json:"bairro"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	gorm.Model
+	Reg      string `gorm:"type:varchar(4)" bson:"reg" json:"reg"`
+	CodPart  string `gorm:"type:varchar(60)" bson:"codpart" json:"codpart"`
+	Nome     string `gorm:"type:varchar(100)" bson:"nome" json:"nome"`
+	CodPais  string `gorm:"type:varchar(5)" bson:"codpais" json:"codpais"`
+	Cnpj     string `gorm:"type:varchar(14)" bson:"cnpj" json:"cnpj"`
+	Cpf      string `gorm:"type:varchar(11)" bson:"cpf" json:"cpf"`
+	Ie       string `gorm:"type:varchar(14)" bson:"ie" json:"ie"`
+	CodMun   string `gorm:"type:varchar(7)" bson:"codmun" json:"codmun"`
+	Suframa  string `gorm:"type:varchar(9)" bson:"suframa" json:"suframa"`
+	Endereco string `gorm:"type:varchar(60)" bson:"endereco" json:"endereco"`
+	Num      string `gorm:"type:varchar(10)" bson:"num" json:"num"`
+	Compl    string `gorm:"type:varchar(60)" bson:"compl" json:"compl"`
+	Bairro   string `gorm:"type:varchar(60)" bson:"bairro" json:"bairro"`
+	DtIni    string `gorm:"type:varchar(8)" bson:"dtini" json:"dtini"`
+	DtFin    string `gorm:"type:varchar(8)" bson:"dtfin" json:"dtfin"`
+	CnpjSped string `gorm:"type:varchar(14)" bson:"cnpjsped" json:"cnpjsped"`
+}
+
+// TableName : Funcao responsavel por definir o nome na tabela
+func (Reg0150) TableName() string {
+	return "reg0150"
+}
+
+// CreateDB : funcao para criar o banco de dados do Registro 0100
+func (r *Reg0150) CreateDB(db gorm.DB) {
+	db.AutoMigrate(r)
+}
+
+// DropDB : funcao para apagar banco de dados do Registro 0100
+func (r *Reg0150) DropDB(db gorm.DB) {
+	db.DropTable(r)
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped
