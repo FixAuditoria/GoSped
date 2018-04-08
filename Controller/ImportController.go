@@ -19,9 +19,9 @@ func (i *ImportController) Importar(path string, db *gorm.DB) {
 	for _, arq := range arquivos {
 		extensao := filepath.Ext(arq)
 		if extensao == ".txt" || extensao == ".TXT" {
-			var spedcontroller SpedController
-			spedcontroller.addMongo(arq, db)
-			spedcontroller.validacoes(arq)
+			// var spedcontroller SpedController
+			// spedcontroller.addMongo(arq, db)
+			// spedcontroller.validacoes(arq)
 		}
 		if extensao == ".csv" || extensao == ".CSV" {
 			// TODO : faz verificacao se é um arquivo tipo siget e importa
