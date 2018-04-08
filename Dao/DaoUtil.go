@@ -1,9 +1,5 @@
 package Dao
 
-import mgo "gopkg.in/mgo.v2"
-
-var db *mgo.Database
-
 const (
 	COLLECTION0000          = "reg0000"
 	COLLECTION0100          = "reg0100"

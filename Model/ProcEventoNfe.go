@@ -1,8 +1,11 @@
 package Model
 
+import "github.com/go-bongo/bongo"
+
 type ProcEventoNFe struct {
-	Versao string `xml:"versao,attr"`
-	Evento struct {
+	bongo.DocumentBase `bson:",inline"`
+	Versao             string `xml:"versao,attr"`
+	Evento             struct {
 		InfEvento struct {
 			Id         string `xml:"Id,attr"`
 			COrgao     string `xml:"cOrgao"`

@@ -3,7 +3,7 @@ package Controller
 import (
 	"path/filepath"
 
-	"github.com/jinzhu/gorm"
+	"github.com/go-bongo/bongo"
 
 	"github.com/chapzin/GoSped/Utilidades"
 )
@@ -14,13 +14,13 @@ type ImportController struct {
 }
 
 // Importar : metodo responsavel pela separacao dos arquivos
-func (i *ImportController) Importar(path string, db *gorm.DB) {
+func (i *ImportController) Importar(path string, conn *bongo.Connection) {
 	arquivos, _ := Utilidades.ListFiles(path)
 	for _, arq := range arquivos {
 		extensao := filepath.Ext(arq)
 		if extensao == ".txt" || extensao == ".TXT" {
-			// var spedcontroller SpedController
-			// spedcontroller.addMongo(arq, db)
+			var spedcontroller SpedController
+			spedcontroller.addDB(arq, conn)
 			// spedcontroller.validacoes(arq)
 		}
 		if extensao == ".csv" || extensao == ".CSV" {
@@ -29,7 +29,7 @@ func (i *ImportController) Importar(path string, db *gorm.DB) {
 		if extensao == ".xml" || extensao == ".XML" {
 			// TODO : faz verificacao se é um arquivo xml nfe, cte ou evento e importa
 			// fmt.Println(arq)
-			ListaXmls(arq)
+			ListaXmls(arq, conn)
 		}
 	}
 }

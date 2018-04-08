@@ -1,18 +1,16 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC465 : Complemento do Cupom Fiscal Eletrônico Emitido por ECF - CF-e-ECF (código 60)
 type RegC465 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	ChvCfe   string        `bson:"chvcfe" json:"chvcfe"`
-	NumCcF   string        `bson:"numccf" json:"numccf"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	ChvCfe             string
+	NumCcF             string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

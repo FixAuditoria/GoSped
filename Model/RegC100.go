@@ -1,44 +1,42 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC100 : Documento - Nota Fiscal Eletrônica (código 55) e Nota Fiscal Eletrônica para Consumidor Final (código 65)
 type RegC100 struct {
-	ID         bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg        string        `bson:"reg" json:"reg"`
-	IndOper    string        `bson:"indoper" json:"indoper"`
-	IndEmit    string        `bson:"indemit" json:"indemit"`
-	CodPart    string        `bson:"codpart" json:"codpart"`
-	CodMod     string        `bson:"codmod" json:"codmod"`
-	CodSit     string        `bson:"codsit" json:"codsit"`
-	Ser        string        `bson:"ser" json:"ser"`
-	NumDoc     string        `bson:"numdoc" json:"numdoc"`
-	ChvNfe     string        `bson:"chvnfe" json:"chvnfe"`
-	DtDoc      string        `bson:"dtdoc" json:"dtdoc"`
-	DtES       string        `bson:"dtes" json:"dtes"`
-	VlDoc      string        `bson:"vldoc" json:"vldoc"`
-	IndPgto    string        `bson:"indpgto" json:"indpgto"`
-	VlDesc     string        `bson:"vldesc" json:"vldesc"`
-	VlAbatNt   string        `bson:"vlabatnt" json:"vlabatnt"`
-	VlMerc     string        `bson:"vlmerc" json:"vlmerc"`
-	IndFrt     string        `bson:"indfrt" json:"indfrt"`
-	VlFrt      string        `bson:"vlfrt" json:"vlfrt"`
-	VlSeg      string        `bson:"vlseg" json:"vlseg"`
-	VlOutDa    string        `bson:"vloutda" json:"vloutda"`
-	VlBcIcms   string        `bson:"vlbcicms" json:"vlbcicms"`
-	VlIcms     string        `bson:"vlicms" json:"vlicms"`
-	VlBcIcmsSt string        `bson:"vlbcicmsst" json:"vlbcicmsst"`
-	VlIcmsSt   string        `bson:"vlicmsst" json:"vlicmsst"`
-	VlIpi      string        `bson:"vlipi" json:"vlipi"`
-	VlPis      string        `bson:"vlpis" json:"vlpis"`
-	VlCofins   string        `bson:"vlcofins" json:"vlcofins"`
-	VlPisSt    string        `bson:"vlpisst" json:"vlpisst"`
-	VlCofinsSt string        `bson:"vlcofinsst" json:"vlcofinsst"`
-	DtIni      string        `bson:"dtini" json:"dtini"`
-	DtFin      string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped   string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	IndOper            string
+	IndEmit            string
+	CodPart            string
+	CodMod             string
+	CodSit             string
+	Ser                string
+	NumDoc             string
+	ChvNfe             string
+	DtDoc              string
+	DtES               string
+	VlDoc              string
+	IndPgto            string
+	VlDesc             string
+	VlAbatNt           string
+	VlMerc             string
+	IndFrt             string
+	VlFrt              string
+	VlSeg              string
+	VlOutDa            string
+	VlBcIcms           string
+	VlIcms             string
+	VlBcIcmsSt         string
+	VlIcmsSt           string
+	VlIpi              string
+	VlPis              string
+	VlCofins           string
+	VlPisSt            string
+	VlCofinsSt         string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

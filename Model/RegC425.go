@@ -1,23 +1,21 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC425 : Resumo de itens do movimento diário (código 02 e 2D)
 type RegC425 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	CodItem  string        `bson:"coditem" json:"coditem"`
-	Qtd      string        `bson:"qtd" json:"qtd"`
-	Unid     string        `bson:"unid" json:"unid"`
-	VlItem   string        `bson:"vlitem" json:"vlitem"`
-	VlPis    string        `bson:"vlpis" json:"vlpis"`
-	VlCofins string        `bson:"vlcofins" json:"vlcofins"`
-	DtVenda  string        `bson:"dtvenda" json:"dtvenda"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	CodItem            string
+	Qtd                string
+	Unid               string
+	VlItem             string
+	VlPis              string
+	VlCofins           string
+	DtVenda            string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

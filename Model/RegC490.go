@@ -1,23 +1,21 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC490 : Registro Analítico do movimento diário (código 02, 2D e 60)
 type RegC490 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	CstIcms  string        `bson:"csticms" json:"csticms"`
-	Cfop     string        `bson:"cfop" json:"cfop"`
-	AliqIcms string        `bson:"aliqicms" json:"aliqicms"`
-	VlOpr    string        `bson:"vlopr" json:"vlopr"`
-	VlBcIcms string        `bson:"vlbcicms" json:"vlbcicms"`
-	VlIcms   string        `bson:"vlicms" json:"vlicms"`
-	CodObs   string        `bson:"codobs" json:"codobs"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	CstIcms            string
+	Cfop               string
+	AliqIcms           string
+	VlOpr              string
+	VlBcIcms           string
+	VlIcms             string
+	CodObs             string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

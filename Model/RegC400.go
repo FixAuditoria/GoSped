@@ -1,18 +1,18 @@
 package Model
 
-import "gopkg.in/mgo.v2/bson"
+import "github.com/go-bongo/bongo"
 
 // RegC400 : Equipamento ECF (código 02, 2D e 60),
 type RegC400 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	CodMod   string        `bson:"codmod" json:"codmod"`
-	EcfMod   string        `bson:"ecfmod" json:"ecfmod"`
-	EcfFab   string        `bson:"ecffab" json:"ecffab"`
-	EcfCx    string        `bson:"ecfcx" json:"ecfcx"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	CodMod             string
+	EcfMod             string
+	EcfFab             string
+	EcfCx              string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

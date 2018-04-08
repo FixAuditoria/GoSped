@@ -1,7 +1,10 @@
 package Model
 
+import "github.com/go-bongo/bongo"
+
 type NFe struct {
-	InfNFe struct {
+	bongo.DocumentBase `bson:",inline"`
+	InfNFe             struct {
 		Versao string `xml:"versao,attr"`
 		Id     string `xml:"Id,attr"`
 		Ide    struct {

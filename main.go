@@ -1,12 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/chapzin/GoSped/ConfigTom"
 	"github.com/chapzin/GoSped/Controller"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/go-bongo/bongo"
 )
 
 var cofing2 = ConfigTom.ConfigSped{}
@@ -20,26 +19,20 @@ var cofing2 = ConfigTom.ConfigSped{}
 
 func init() {
 	cofing2.Read()
-	// regC100Dao.Server = cofing2.Server
-	// regC100Dao.Database = cofing2.Database
-	// regC100Dao.Connect()
-	// regC170Dao.Server = cofing2.Server
-	// regC170Dao.Database = cofing2.Database
-	// regC170Dao.Connect()
-	// regC170Dao.Server = cofing2.Server
-	// regC170Dao.Database = cofing2.Database
-	// regC170Dao.Connect()
 
-	// produtosNfe.Server = cofing2.Server
-	// produtosNfe.Database = cofing2.DataBaseNfe
-	// produtosNfe.Connect()
-
-	// regC425Dao.Server = cofing2.Server
-	// regC425Dao.Database = cofing2.Database
-	// regC425Dao.Connect()
 }
 
 func main() {
+	config := &bongo.Config{
+		ConnectionString: "localhost",
+		Database:         "auditoria",
+	}
+
+	connection, err := bongo.Connect(config)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 	// ----------- Lista todos os itens dos cupons fiscais
 	// itens, err := regC425Dao.FindAll()
 	// if err != nil {
@@ -86,14 +79,7 @@ func main() {
 
 	// }
 	// ----------------- Importa todos arquivos da pasta que fica no config.toml ------------------------
-	db, err := gorm.Open("postgres", "host=127.0.0.1 port=5432 user=postgres dbname=auditoria password=test sslmode=disable")
-	db.Debug()
-	defer db.Close()
-	if err != nil {
-		fmt.Println(err)
-	}
-
 	var importar Controller.ImportController
-	importar.Importar(cofing2.PathImport, db)
+	importar.Importar(cofing2.PathImport, connection)
 
 }

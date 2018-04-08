@@ -1,55 +1,53 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC170 : Complemento de Documento - Itens do Documento (código 01, 1B, 04 e 55)
 type RegC170 struct {
-	ID            bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg           string        `bson:"reg" json:"reg"`
-	NumItem       string        `bson:"numitem" json:"numitem"`
-	CodItem       string        `bson:"coditem" json:"coditem"`
-	DescrCompl    string        `bson:"descrcompl" json:"descrcompl"`
-	Qtd           string        `bson:"qtd" json:"qtd"`
-	Unid          string        `bson:"unid" json:"unid"`
-	VlItem        string        `bson:"vlitem" json:"vlitem"`
-	VlDesc        string        `bson:"vldesc" json:"vldesc"`
-	IndMov        string        `bson:"indmov" json:"indmov"`
-	CstIcms       string        `bson:"csticms" json:"csticms"`
-	Cfop          string        `bson:"cfop" json:"cfop"`
-	CodNat        string        `bson:"codnat" json:"codnat"`
-	VlBcIcms      string        `bson:"vlbcicms" json:"vlbcicms"`
-	AliqIcms      string        `bson:"aliqicms" json:"aliqicms"`
-	VlIcms        string        `bson:"vlicms" json:"vlicms"`
-	VlBcIcmsSt    string        `bson:"vlbicmsst" json:"vlbicmsst"`
-	AliqSt        string        `bson:"aliqst" json:"aliqst"`
-	VlIcmsSt      string        `bson:"vlicmsst" json:"vlicmsst"`
-	IndApur       string        `bson:"indapur" json:"indapur"`
-	CstIpi        string        `bson:"cstipi" json:"cstipi"`
-	CodEnq        string        `bson:"codenq" json:"codenq"`
-	VlBcIpi       string        `bson:"vlbcipi" json:"vlbcipi"`
-	AliqIpi       string        `bson:"aliqipi" json:"aliqipi"`
-	VlIpi         string        `bson:"vlipi" json:"vlipi"`
-	CstPis        string        `bson:"cstpis" json:"cstpis"`
-	VlBcPis       string        `bson:"vlbcpis" json:"vlbcpis"`
-	AliqPis01     string        `bson:"aliqpis01" json:"aliqpis01"`
-	QuantBcPis    string        `bson:"quantbcpis" json:"quantbcpis"`
-	AliqPis02     string        `bson:"aliqpis02" json:"aliqpis02"`
-	VlPis         string        `bson:"vlpis" json:"vlpis"`
-	CstCofins     string        `bson:"cstcofins" json:"cstcofins"`
-	VlBcCofins    string        `bson:"vlbccofins" json:"vlbccofins"`
-	AliqCofins01  string        `bson:"aliqcofins01" json:"aliqcofins01"`
-	QuantBcCofins string        `bson:"quantbccofins" json:"quantbccofins"`
-	AliqCofins02  string        `bson:"aliqcofins02" json:"aliqcofins02"`
-	VlCofins      string        `bson:"vlcofins" json:"vlcofins"`
-	CodCta        string        `bson:"codcta" json:"codcta"`
-	EntradaSaida  string        `bson:"entradasaida" json:"entradasaida"`
-	NumDoc        string        `bson:"numdoc" json:"numdoc"`
-	ChvNfe        string        `bson:"chvnfe" json:"chvnfe"`
-	DtIni         string        `bson:"dtini" json:"dtini"`
-	DtFin         string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped      string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	NumItem            string
+	CodItem            string
+	DescrCompl         string
+	Qtd                string
+	Unid               string
+	VlItem             string
+	VlDesc             string
+	IndMov             string
+	CstIcms            string
+	Cfop               string
+	CodNat             string
+	VlBcIcms           string
+	AliqIcms           string
+	VlIcms             string
+	VlBcIcmsSt         string
+	AliqSt             string
+	VlIcmsSt           string
+	IndApur            string
+	CstIpi             string
+	CodEnq             string
+	VlBcIpi            string
+	AliqIpi            string
+	VlIpi              string
+	CstPis             string
+	VlBcPis            string
+	AliqPis01          string
+	QuantBcPis         string
+	AliqPis02          string
+	VlPis              string
+	CstCofins          string
+	VlBcCofins         string
+	AliqCofins01       string
+	QuantBcCofins      string
+	AliqCofins02       string
+	VlCofins           string
+	CodCta             string
+	EntradaSaida       string
+	NumDoc             string
+	ChvNfe             string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

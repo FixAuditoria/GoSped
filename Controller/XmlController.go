@@ -7,6 +7,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/go-bongo/bongo"
+
 	"github.com/chapzin/GoSped/Model"
 )
 
@@ -46,7 +48,7 @@ func MoveXml(pathInicial string, pathFinal string) {
 	}
 }
 
-func ListaXmls(arquivo string) {
+func ListaXmls(arquivo string, conn *bongo.Connection) {
 	xmlarquivo, err := os.Open(arquivo)
 	if err != nil {
 		fmt.Println(err)
@@ -98,6 +100,10 @@ func ListaXmls(arquivo string) {
 		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + chave + ".xml"
 		CriarPastas(path, cnpj, ano, mes, tipo)
 		MoveXml(arquivo, pathArquivo)
+		err := conn.Collection("nfeProc").Save(&nota)
+		if err != nil {
+			fmt.Println(err)
+		}
 		// for _, det := range nota.NFe.InfNFe.Det {
 		// 	fmt.Println(det.Prod.CProd)
 		// }

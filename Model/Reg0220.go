@@ -1,35 +1,18 @@
 package Model
 
-import (
-	"github.com/jinzhu/gorm"
-)
+import "github.com/go-bongo/bongo"
 
 // Reg0220 : Fatores de Conversão de Unidades
 type Reg0220 struct {
-	gorm.Model
-	Reg      string `gorm:"type:varchar(4)" bson:"reg" json:"reg"`
-	UnidConv string `gorm:"type:varchar(6)" bson:"unidconv" json:"unidconv"`
-	FatConv  string `gorm:"type:varchar(20)" bson:"fatconv" json:"fatconv"`
-	UnidCod  string `gorm:"type:varchar(10)" bson:"unidcod" json:"unidcod"`
-	CodItem  string `gorm:"type:varchar(60)" bson:"coditem" json:"coditem"`
-	DtIni    string `gorm:"type:varchar(8)" bson:"dtini" json:"dtini"`
-	DtFin    string `gorm:"type:varchar(8)" bson:"dtfin" json:"dtfin"`
-	CnpjSped string `gorm:"type:varchar(14)" bson:"cnpjsped" json:"cnpjsped"`
-}
-
-// TableName : Funcao responsavel por definir o nome na tabela
-func (Reg0220) TableName() string {
-	return "reg0220"
-}
-
-// CreateDB : funcao para criar o banco de dados do Registro 0100
-func (r *Reg0220) CreateDB(db gorm.DB) {
-	db.AutoMigrate(r)
-}
-
-// DropDB : funcao para apagar banco de dados do Registro 0100
-func (r *Reg0220) DropDB(db gorm.DB) {
-	db.DropTable(r)
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	UnidConv           string
+	FatConv            string
+	UnidCod            string
+	CodItem            string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

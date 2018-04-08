@@ -1,26 +1,24 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC190 : Registro Analítico do Documento (código 01, 1B, 04, 55 e 65)
 type RegC190 struct {
-	ID         bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg        string        `bson:"reg" json:"reg"`
-	CstIcms    string        `bson:"csticms" json:"csticms"`
-	AliqIcms   string        `bson:"aliqicms" json:"aliqicms"`
-	VlOpr      string        `bson:"vlopr" json:"vlopr"`
-	VlBcIcms   string        `bson:"vlbcicms" json:"vlbcicms"`
-	VlIcms     string        `bson:"vlicms" json:"vlicms"`
-	VlBcIcmsSt string        `bson:"vlbcicmsst" json:"vlbcicmsst"`
-	VlIcmsSt   string        `bson:"vlicmsst" json:"vlicmsst"`
-	VlRedBc    string        `bson:"vlredbc" json:"vlredbc"`
-	VlIpi      string        `bson:"vlipi" json:"vlipi"`
-	CodObs     string        `bson:"codobs" json:"codobs"`
-	DtIni      string        `bson:"dtini" json:"dtini"`
-	DtFin      string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped   string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	CstIcms            string
+	AliqIcms           string
+	VlOpr              string
+	VlBcIcms           string
+	VlIcms             string
+	VlBcIcmsSt         string
+	VlIcmsSt           string
+	VlRedBc            string
+	VlIpi              string
+	CodObs             string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

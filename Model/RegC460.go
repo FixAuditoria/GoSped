@@ -1,25 +1,23 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC460 : Documento Fiscal Emitido por ECF (código 02, 2D e 60)
 type RegC460 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	CodMod   string        `bson:"codmod" json:"codmod"`
-	CodSit   string        `bson:"codsit" json:"codsit"`
-	NumDoc   string        `bson:"numdoc" json:"numdoc"`
-	DtDoc    string        `bson:"dtdoc" json:"dtdoc"`
-	VlDoc    string        `bson:"vldoc" json:"vldoc"`
-	VlPis    string        `bson:"vlpis" json:"vlpis"`
-	VlCofins string        `bson:"vlcofins" json:"vlcofins"`
-	CpfCnpj  string        `bson:"cpfcnpj" json:"cpfcnpj"`
-	NomAdq   string        `bson:"nomadq" json:"nomadq"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	CodMod             string
+	CodSit             string
+	NumDoc             string
+	DtDoc              string
+	VlDoc              string
+	VlPis              string
+	VlCofins           string
+	CpfCnpj            string
+	NomAdq             string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

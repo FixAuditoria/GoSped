@@ -1,27 +1,25 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegH010 : Inventário
 type RegH010 struct {
-	ID       bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg      string        `bson:"reg" json:"reg"`
-	CodItem  string        `bson:"coditem" json:"coditem"`
-	Unid     string        `bson:"unid" json:"unid"`
-	Qtd      string        `bson:"qtd" json:"qtd"`
-	VlUnit   string        `bson:"vlunit" json:"vlunit"`
-	VlItem   string        `bson:"vlitem" json:"vlitem"`
-	IndProp  string        `bson:"indprop" json:"indprop"`
-	CodPart  string        `bson:"codpart" json:"codpart"`
-	TxtCompl string        `bson:"txtcompl" json:"txtcompl"`
-	CodCta   string        `bson:"codcta" json:"codcta"`
-	VlItemIr string        `bson:"vlitemir" json:"vlitemir"`
-	DtInv    string        `bson:"dtinv" json:"dtinv"`
-	DtIni    string        `bson:"dtini" json:"dtini"`
-	DtFin    string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	CodItem            string
+	Unid               string
+	Qtd                string
+	VlUnit             string
+	VlItem             string
+	IndProp            string
+	CodPart            string
+	TxtCompl           string
+	CodCta             string
+	VlItemIr           string
+	DtInv              string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

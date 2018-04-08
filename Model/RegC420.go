@@ -1,20 +1,18 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC420 : Registro dos Totalizadores Parciais da Redução Z (código 02, 2D e 60)
 type RegC420 struct {
-	ID         bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg        string        `bson:"reg" json:"reg"`
-	CodTotPar  string        `bson:"codtotpar" json:"codtotpar"`
-	VlrAcumTot string        `bson:"vlracumtot" json:"vlracumtot"`
-	NrTot      string        `bson:"nrtot" json:"nrtot"`
-	DescrNrTot string        `bson:"descrnrtot" json:"descrnrtot"`
-	DtIni      string        `bson:"dtini" json:"dtini"`
-	DtFin      string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped   string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	CodTotPar          string
+	VlrAcumTot         string
+	NrTot              string
+	DescrNrTot         string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped

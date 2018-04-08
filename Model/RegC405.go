@@ -1,22 +1,20 @@
 package Model
 
-import (
-	"gopkg.in/mgo.v2/bson"
-)
+import "github.com/go-bongo/bongo"
 
 // RegC405 : Redução Z (código 02, 2D e 60)
 type RegC405 struct {
-	ID        bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
-	Reg       string        `bson:"reg" json:"reg"`
-	DtDoc     string        `bson:"dtdoc" json:"dtdoc"`
-	Cro       string        `bson:"cro" json:"cro"`
-	Crz       string        `bson:"crz" json:"crz"`
-	NumCooFin string        `bson:"numcoofin" json:"numcoofin"`
-	GtFin     string        `bson:"gtfin" json:"gtfin"`
-	VlBrt     string        `bson:"vlbrt" json:"vlbrt"`
-	DtIni     string        `bson:"dtini" json:"dtini"`
-	DtFin     string        `bson:"dtfin" json:"dtfin"`
-	CnpjSped  string        `bson:"cnpjsped" json:"cnpjsped"`
+	bongo.DocumentBase `bson:",inline"`
+	Reg                string
+	DtDoc              string
+	Cro                string
+	Crz                string
+	NumCooFin          string
+	GtFin              string
+	VlBrt              string
+	DtIni              string
+	DtFin              string
+	CnpjSped           string
 }
 
 // Populate : O métdodo é responsável por preencher os dados pelo sped
