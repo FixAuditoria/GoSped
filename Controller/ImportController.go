@@ -29,7 +29,7 @@ func (i *ImportController) Importar(path string, conn *bongo.Connection) {
 		if extensao == ".xml" || extensao == ".XML" {
 			// TODO : faz verificacao se é um arquivo xml nfe, cte ou evento e importa
 			// fmt.Println(arq)
-			ListaXmls(arq, conn)
+			ProcessarXmls(arq, conn)
 		}
 	}
 }

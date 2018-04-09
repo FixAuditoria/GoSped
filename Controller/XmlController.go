@@ -17,38 +17,42 @@ var path string
 func init() {
 	path = "empresas"
 	pathinvalido := path + "/invalido"
-	IsCreateDir(path)
-	IsCreateDir(pathinvalido)
+	CriarUmDiretorio(path)
+	CriarUmDiretorio(pathinvalido)
 }
 
-func IsCreateDir(path string) {
+// CriarUmDiretorio : Funcao responsavel por criar um diretorio caso ele nao exista
+func CriarUmDiretorio(path string) {
 	// Caminho do cnpj da empresa emitente
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.Mkdir(path, 0755)
 	}
 }
 
-func CriarPastas(path string, cnpj string, ano string, mes string, tipo string) {
+// CriarEstruturaDePastas : Funcao responsavel por criar uma estrutura grande de pastas para o armazenamento dos xmls
+func CriarEstruturaDePastas(path string, cnpj string, ano string, mes string, tipo string) {
 	pathcnpj := path + "/" + cnpj
 	fmt.Println(pathcnpj)
 	pathano := path + "/" + cnpj + "/" + ano
 	pathmes := path + "/" + cnpj + "/" + ano + "/" + mes
 	pathtipo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo
 
-	IsCreateDir(pathcnpj)
-	IsCreateDir(pathano)
-	IsCreateDir(pathmes)
-	IsCreateDir(pathtipo)
+	CriarUmDiretorio(pathcnpj)
+	CriarUmDiretorio(pathano)
+	CriarUmDiretorio(pathmes)
+	CriarUmDiretorio(pathtipo)
 }
 
-func MoveXml(pathInicial string, pathFinal string) {
+// MoverXml : Funcao responsavel por levar o xml do pathInicial para o pathFinal
+func MoverXml(pathInicial string, pathFinal string) {
 	err := os.Rename(pathInicial, pathFinal)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-func ListaXmls(arquivo string, conn *bongo.Connection) {
+// ProcessarXmls : Funcao responsavel por verificar o que contem e mandar para o destino correto
+func ProcessarXmls(arquivo string, conn *bongo.Connection) {
 	xmlarquivo, err := os.Open(arquivo)
 	if err != nil {
 		fmt.Println(err)
@@ -68,8 +72,8 @@ func ListaXmls(arquivo string, conn *bongo.Connection) {
 		ano := "20" + nota.InfNFe.Id[5:7]
 		mes := nota.InfNFe.Id[7:9]
 		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + chave + ".xml"
-		CriarPastas(path, cnpj, ano, mes, tipo)
-		MoveXml(arquivo, pathArquivo)
+		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+		MoverXml(arquivo, pathArquivo)
 
 	}
 
@@ -82,8 +86,8 @@ func ListaXmls(arquivo string, conn *bongo.Connection) {
 		ano := "20" + nota2.InfNFe.Id[5:7]
 		mes := nota2.InfNFe.Id[7:9]
 		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + chave + ".xml"
-		CriarPastas(path, cnpj, ano, mes, tipo)
-		MoveXml(arquivo, pathArquivo)
+		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+		MoverXml(arquivo, pathArquivo)
 		// for _, det := range nota2.InfNFe.Det {
 		// 	fmt.Println(det.Prod.CProd)
 		// }
@@ -98,8 +102,8 @@ func ListaXmls(arquivo string, conn *bongo.Connection) {
 		ano := "20" + nota.NFe.InfNFe.Id[5:7]
 		mes := nota.NFe.InfNFe.Id[7:9]
 		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + chave + ".xml"
-		CriarPastas(path, cnpj, ano, mes, tipo)
-		MoveXml(arquivo, pathArquivo)
+		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+		MoverXml(arquivo, pathArquivo)
 		err := conn.Collection("nfeProc").Save(&nota)
 		if err != nil {
 			fmt.Println(err)
@@ -121,8 +125,8 @@ func ListaXmls(arquivo string, conn *bongo.Connection) {
 		pathInut := path + "/" + cnpj + "/" + ano + "/" + tipo
 		pathArquivo := pathInut + "/" + nfini + "-" + nffin + ".xml"
 
-		IsCreateDir(pathInut)
-		MoveXml(arquivo, pathArquivo)
+		CriarUmDiretorio(pathInut)
+		MoverXml(arquivo, pathArquivo)
 	}
 
 	// Eventos das Nfe
@@ -135,8 +139,8 @@ func ListaXmls(arquivo string, conn *bongo.Connection) {
 		ano := "20" + chave[2:4]
 		mes := chave[4:6]
 		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/procEvent-" + chave + ".xml"
-		CriarPastas(path, cnpj, ano, mes, tipo)
-		MoveXml(arquivo, pathArquivo)
+		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+		MoverXml(arquivo, pathArquivo)
 	}
 
 }
