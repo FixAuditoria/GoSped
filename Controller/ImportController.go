@@ -15,7 +15,7 @@ type ImportController struct {
 
 // Importar : metodo responsavel pela separacao dos arquivos
 func (i *ImportController) Importar(path string, conn *bongo.Connection) {
-	arquivos, _ := Utilidades.ListFiles(path)
+	arquivos, _ := Utilidades.ListarArquivos(path)
 	for _, arq := range arquivos {
 		extensao := filepath.Ext(arq)
 		if extensao == ".txt" || extensao == ".TXT" {

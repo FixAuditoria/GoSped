@@ -19,6 +19,17 @@ type SpedController struct {
 
 var config2 ConfigTom.ConfigSped
 
+func ProcessarPathSped(reg0000 Model.Reg0000) (pathArquivo string) {
+	tipo := "sped"
+	cnpj := reg0000.Cnpj
+	ano := reg0000.DtIni[4:8]
+	mes := reg0000.DtIni[2:4]
+	path := "empresas"
+	Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+	pathArquivo = path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + "Sped-" + mes + "-" + ano + ".txt"
+	return pathArquivo
+}
+
 func (s *SpedController) addDB(arquivo string, conn *bongo.Connection) {
 	var reg0000 Model.Reg0000
 	var reg0100 Model.Reg0100
@@ -39,7 +50,7 @@ func (s *SpedController) addDB(arquivo string, conn *bongo.Connection) {
 	var regC490 Model.RegC490
 	var regH005 Model.RegH005
 	var regH010 Model.RegH010
-	conteudo, err := Utilidades.ReadFile(arquivo)
+	conteudo, err := Utilidades.LerArquivoSped(arquivo)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -55,6 +66,8 @@ func (s *SpedController) addDB(arquivo string, conn *bongo.Connection) {
 						if err != nil {
 							fmt.Println(err)
 						}
+						pathArquivo := ProcessarPathSped(reg0000)
+						Utilidades.MoverArquivos(arquivo, pathArquivo)
 
 					}
 					if linhaSplit[1] == "0100" {
@@ -209,7 +222,7 @@ func (s *SpedController) addDB(arquivo string, conn *bongo.Connection) {
 }
 
 func (s *SpedController) validacoes(arquivo string) {
-	conteudo, err := Utilidades.ReadFile(arquivo)
+	conteudo, err := Utilidades.LerArquivoSped(arquivo)
 	if err != nil {
 		fmt.Println(err)
 	}

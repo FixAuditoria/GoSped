@@ -10,6 +10,7 @@ import (
 	"github.com/go-bongo/bongo"
 
 	"github.com/chapzin/GoSped/Model"
+	"github.com/chapzin/GoSped/Utilidades"
 )
 
 var path string
@@ -17,130 +18,154 @@ var path string
 func init() {
 	path = "empresas"
 	pathinvalido := path + "/invalido"
-	CriarUmDiretorio(path)
-	CriarUmDiretorio(pathinvalido)
+	Utilidades.CriarUmDiretorio(path)
+	Utilidades.CriarUmDiretorio(pathinvalido)
 }
 
-// CriarUmDiretorio : Funcao responsavel por criar um diretorio caso ele nao exista
-func CriarUmDiretorio(path string) {
-	// Caminho do cnpj da empresa emitente
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		os.Mkdir(path, 0755)
-	}
+// ProcessarNfeSemProcValido : Responsavel por executar estrutura de pastas e retornar o novo path do arquivo
+func ProcessarNfeSemProcValido(file []byte) (pathArquivo string) {
+	var nota Model.NFe
+	xml.Unmarshal(file, &nota)
+	tipo := "nfe"
+	chave := nota.InfNFe.Id[3:47]
+	cnpj := nota.InfNFe.Emit.Cnpj
+	ano := "20" + nota.InfNFe.Id[5:7]
+	mes := nota.InfNFe.Id[7:9]
+	pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+	pathArquivo = pathFinal + "/" + chave + ".xml"
+
+	return pathArquivo
 }
 
-// CriarEstruturaDePastas : Funcao responsavel por criar uma estrutura grande de pastas para o armazenamento dos xmls
-func CriarEstruturaDePastas(path string, cnpj string, ano string, mes string, tipo string) {
-	pathcnpj := path + "/" + cnpj
-	fmt.Println(pathcnpj)
-	pathano := path + "/" + cnpj + "/" + ano
-	pathmes := path + "/" + cnpj + "/" + ano + "/" + mes
-	pathtipo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo
+// ProcessarNfeSemValidade : Responsavel por executar estrutura de pastas dos xmls sem validade e retorna o path do arquivo
+func ProcessarNfeSemValidade(file []byte) (pathArquivo string) {
+	var nota2 Model.NFe
+	xml.Unmarshal(file, &nota2)
+	tipo := "nfeSemValidade"
+	chave := nota2.InfNFe.Id[3:47]
+	cnpj := nota2.InfNFe.Emit.Cnpj
+	ano := "20" + nota2.InfNFe.Id[5:7]
+	mes := nota2.InfNFe.Id[7:9]
+	pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+	pathArquivo = pathFinal + "/" + chave + ".xml"
 
-	CriarUmDiretorio(pathcnpj)
-	CriarUmDiretorio(pathano)
-	CriarUmDiretorio(pathmes)
-	CriarUmDiretorio(pathtipo)
+	return pathArquivo
 }
 
-// MoverXml : Funcao responsavel por levar o xml do pathInicial para o pathFinal
-func MoverXml(pathInicial string, pathFinal string) {
-	err := os.Rename(pathInicial, pathFinal)
+// ProcessarNfeProcValido : Funcao responsavel separar variaveis e retornar path e model
+func ProcessarNfeProcValido(file []byte) (pathArquivo string, nota Model.NfeProc) {
+	xml.Unmarshal(file, &nota)
+	tipo := "nfe"
+	chave := nota.NFe.InfNFe.Id[3:47]
+	cnpj := nota.NFe.InfNFe.Emit.Cnpj
+	ano := "20" + nota.NFe.InfNFe.Id[5:7]
+	mes := nota.NFe.InfNFe.Id[7:9]
+	pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+	pathArquivo = pathFinal + "/" + chave + ".xml"
+	return pathArquivo, nota
+}
+
+// InserirNfeProcMongo : Inserir no banco de dados mongo com o bongo
+func InserirNfeProcMongo(colecao string, nota Model.NfeProc, conn *bongo.Connection) {
+	err := conn.Collection(colecao).Save(&nota)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-// ProcessarXmls : Funcao responsavel por verificar o que contem e mandar para o destino correto
-func ProcessarXmls(arquivo string, conn *bongo.Connection) {
+// TransformarXmlEmByte : Funcao responsavel por receber path do arquivo xml e retornar em byte
+func TransformarXmlEmByte(arquivo string) (b []byte) {
 	xmlarquivo, err := os.Open(arquivo)
 	if err != nil {
 		fmt.Println(err)
 	}
-	b, _ := ioutil.ReadAll(xmlarquivo)
+	b, _ = ioutil.ReadAll(xmlarquivo)
 	xmlarquivo.Close()
-	isNfePro := string(b[0:70])
-	// fmt.Println(isNfePro)
-	// Estrutura com nfe nao valida
+	return b
+}
+
+// ProcessarRetornoNfeInutilizada : Funcao responsavel por analisar xml de retorno inutilizado e retornar o path detinado
+func ProcessarRetornoNfeInutilizada(file []byte) (pathArquivo string) {
+	var inutilizada Model.RetInutNfe
+	xml.Unmarshal(file, &inutilizada)
+	cnpj := inutilizada.InfInut.CNPJ
+	ano := "20" + inutilizada.InfInut.Ano
+	nfini := inutilizada.InfInut.NNFIni
+	nffin := inutilizada.InfInut.NNFFin
+	tipo := "nfeInutilizadas"
+	pathInut := path + "/" + cnpj + "/" + ano + "/" + tipo
+	pathArquivo = pathInut + "/" + nfini + "-" + nffin + ".xml"
+	Utilidades.CriarUmDiretorio(pathInut)
+	return pathArquivo
+}
+
+// ProcessarEventoNfe : Funcao responsavel por analisar xml de evento e retornar o path destinado
+func ProcessarEventoNfe(file []byte) (pathArquivo string) {
+	var procEventoNfe Model.ProcEventoNFe
+	xml.Unmarshal(file, &procEventoNfe)
+	cnpj := procEventoNfe.Evento.InfEvento.CNPJ
+	tipo := "evento"
+	chave := procEventoNfe.Evento.InfEvento.ChNFe
+	ano := "20" + chave[2:4]
+	mes := chave[4:6]
+	tpevento := procEventoNfe.Evento.InfEvento.TpEvento
+	pathfinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+	pathArquivo = pathfinal + "/procEvent-" + tpevento + "-" + chave + ".xml"
+
+	return pathArquivo
+}
+
+func ProcessarEventoCte(file []byte) (pathArquivo string) {
+	var procEventoCte Model.ProcEventoCTe
+	xml.Unmarshal(file, &procEventoCte)
+	cnpj := procEventoCte.EventoCTe.InfEvento.DetEvento.EvCTeAutorizadoMDFe.Emit.CNPJ
+	ano := procEventoCte.EventoCTe.InfEvento.DhEvento[0:4]
+	mes := procEventoCte.EventoCTe.InfEvento.DhEvento[5:7]
+	chave := procEventoCte.EventoCTe.InfEvento.ChCTe
+	tpEvento := procEventoCte.EventoCTe.InfEvento.TpEvento
+	tipo := "eventoCte"
+	pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+	pathArquivo = pathFinal + "/" + chave + "-" + tpEvento + ".xml"
+	return pathArquivo
+}
+
+// ProcessarXmls : Funcao responsavel por verificar o que contem e mandar para o destino correto
+func ProcessarXmls(arquivo string, conn *bongo.Connection) {
+	xmlByte := TransformarXmlEmByte(arquivo)
+	isNfePro := string(xmlByte[0:70])
 
 	if strings.Contains(isNfePro, "><NFe xmlns=") {
-		var nota Model.NFe
-		xml.Unmarshal(b, &nota)
-		tipo := "nfe"
-		chave := nota.InfNFe.Id[3:47]
-		cnpj := nota.InfNFe.Emit.Cnpj
-		ano := "20" + nota.InfNFe.Id[5:7]
-		mes := nota.InfNFe.Id[7:9]
-		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + chave + ".xml"
-		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
-		MoverXml(arquivo, pathArquivo)
-
+		pathArquivo := ProcessarNfeSemProcValido(xmlByte)
+		Utilidades.MoverArquivos(arquivo, pathArquivo)
 	}
 
 	if strings.Contains(isNfePro, "<NFe xmlns:xsi") {
-		var nota2 Model.NFe
-		xml.Unmarshal(b, &nota2)
-		tipo := "nfeSemValidade"
-		chave := nota2.InfNFe.Id[3:47]
-		cnpj := nota2.InfNFe.Emit.Cnpj
-		ano := "20" + nota2.InfNFe.Id[5:7]
-		mes := nota2.InfNFe.Id[7:9]
-		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + chave + ".xml"
-		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
-		MoverXml(arquivo, pathArquivo)
-		// for _, det := range nota2.InfNFe.Det {
-		// 	fmt.Println(det.Prod.CProd)
-		// }
+		pathArquivo := ProcessarNfeSemValidade(xmlByte)
+		Utilidades.MoverArquivos(arquivo, pathArquivo)
 	}
 	// Estrutura com nfe valida
 	if strings.Contains(isNfePro, "<nfeProc") {
-		var nota Model.NfeProc
-		xml.Unmarshal(b, &nota)
-		tipo := "nfe"
-		chave := nota.NFe.InfNFe.Id[3:47]
-		cnpj := nota.NFe.InfNFe.Emit.Cnpj
-		ano := "20" + nota.NFe.InfNFe.Id[5:7]
-		mes := nota.NFe.InfNFe.Id[7:9]
-		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/" + chave + ".xml"
-		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
-		MoverXml(arquivo, pathArquivo)
-		err := conn.Collection("nfeProc").Save(&nota)
-		if err != nil {
-			fmt.Println(err)
-		}
-		// for _, det := range nota.NFe.InfNFe.Det {
-		// 	fmt.Println(det.Prod.CProd)
-		// }
+		pathArquivo, nota := ProcessarNfeProcValido(xmlByte)
+		Utilidades.MoverArquivos(arquivo, pathArquivo)
+		InserirNfeProcMongo("nfeProc", nota, conn)
 	}
 
 	// Evento nfe inutilizada
 	if strings.Contains(isNfePro, "<retInutNFe") {
-		var inutilizada Model.RetInutNfe
-		xml.Unmarshal(b, &inutilizada)
-		cnpj := inutilizada.InfInut.CNPJ
-		ano := "20" + inutilizada.InfInut.Ano
-		nfini := inutilizada.InfInut.NNFIni
-		nffin := inutilizada.InfInut.NNFFin
-		tipo := "nfeInutilizadas"
-		pathInut := path + "/" + cnpj + "/" + ano + "/" + tipo
-		pathArquivo := pathInut + "/" + nfini + "-" + nffin + ".xml"
-
-		CriarUmDiretorio(pathInut)
-		MoverXml(arquivo, pathArquivo)
+		pathArquivo := ProcessarRetornoNfeInutilizada(xmlByte)
+		Utilidades.MoverArquivos(arquivo, pathArquivo)
 	}
 
 	// Eventos das Nfe
 	if strings.Contains(isNfePro, "<procEventoNFe") {
-		var procEventoNfe Model.ProcEventoNFe
-		xml.Unmarshal(b, &procEventoNfe)
-		cnpj := procEventoNfe.Evento.InfEvento.CNPJ
-		tipo := "evento"
-		chave := procEventoNfe.Evento.InfEvento.ChNFe
-		ano := "20" + chave[2:4]
-		mes := chave[4:6]
-		pathArquivo := path + "/" + cnpj + "/" + ano + "/" + mes + "/" + tipo + "/procEvent-" + chave + ".xml"
-		CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
-		MoverXml(arquivo, pathArquivo)
+		pathArquivo := ProcessarEventoNfe(xmlByte)
+		Utilidades.MoverArquivos(arquivo, pathArquivo)
+	}
+
+	if strings.Contains(isNfePro, "<procEventoCTe versao") {
+		pathArquivo := ProcessarEventoCte(xmlByte)
+		Utilidades.MoverArquivos(arquivo, pathArquivo)
+
 	}
 
 }
