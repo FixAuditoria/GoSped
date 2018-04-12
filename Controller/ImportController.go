@@ -5,7 +5,10 @@ import (
 
 	"github.com/go-bongo/bongo"
 
+	"fmt"
 	"github.com/chapzin/GoSped/Utilidades"
+	"github.com/mholt/archiver"
+	"os"
 )
 
 // ImportController : Responsavel por separar e executar os comandos nos arquivos txt, csv e xml
@@ -15,7 +18,7 @@ type ImportController struct {
 
 // Importar : metodo responsavel pela separacao dos arquivos
 func (i *ImportController) Importar(path string, conn *bongo.Connection) {
-	arquivos, _ := Utilidades.ListarArquivos(path)
+	arquivos, _ := Utilidades.ListarArquivosV2(path)
 	for _, arq := range arquivos {
 		extensao := filepath.Ext(arq)
 		if extensao == ".txt" || extensao == ".TXT" {
@@ -31,5 +34,35 @@ func (i *ImportController) Importar(path string, conn *bongo.Connection) {
 			// fmt.Println(arq)
 			ProcessarXmls(arq, conn)
 		}
+		if extensao == ".pdf" || extensao == ".PDF" {
+			os.Remove(arq)
+		}
+
+		if extensao == ".rar" || extensao == ".RAR" {
+			err := archiver.Rar.Open(arq, "importar/")
+			if err != nil {
+				fmt.Println(err.Error())
+			} else {
+				os.Remove(arq)
+			}
+		}
+
+		if extensao == ".zip" || extensao == ".ZIP" {
+			err := archiver.Zip.Open(arq, "importar/")
+			if err != nil {
+				fmt.Println(err.Error())
+			} else {
+				os.Remove(arq)
+			}
+		}
+
+		if extensao == ".exe" || extensao == ".EXE" {
+			os.Remove(arq)
+		}
+
+		if extensao == ".html" || extensao == ".HTML" {
+			os.Remove(arq)
+		}
+
 	}
 }

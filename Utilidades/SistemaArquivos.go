@@ -34,6 +34,19 @@ func ListarArquivos(caminho string) ([]string, error) {
 	return files, err
 }
 
+func ListarArquivosV2(caminho string) (files []string, err error) {
+	err = filepath.Walk(caminho, func(path string, info os.FileInfo, err error) error {
+		if !info.IsDir() {
+			files = append(files, path)
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return files, nil
+}
+
 // CriarUmDiretorio : Funcao responsavel por criar um diretorio caso ele nao exista
 func CriarUmDiretorio(path string) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {

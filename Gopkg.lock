@@ -8,22 +8,46 @@
   version = "v0.3.0"
 
 [[projects]]
-  name = "github.com/jinzhu/gorm"
-  packages = [".","dialects/postgres"]
-  revision = "6ed508ec6a4ecb3531899a69cbc746ccf65a4166"
-  version = "v1.9.1"
+  branch = "master"
+  name = "github.com/dsnet/compress"
+  packages = [".","bzip2","bzip2/internal/sais","internal","internal/errors","internal/prefix"]
+  revision = "cc9eb1d7ad760af14e8f918698f745e80377af4f"
 
 [[projects]]
-  branch = "master"
-  name = "github.com/jinzhu/inflection"
+  name = "github.com/go-bongo/bongo"
   packages = ["."]
-  revision = "04140366298a54a039076d798123ffa108fff46c"
+  revision = "58e3a1fbb5ea15dde8675b60becb2a9950e70164"
+  version = "v0.10.4"
 
 [[projects]]
   branch = "master"
-  name = "github.com/lib/pq"
-  packages = [".","hstore","oid"]
-  revision = "d34b9ff171c21ad295489235aec8b6626023cd04"
+  name = "github.com/maxwellhealth/go-dotaccess"
+  packages = ["."]
+  revision = "ae070a2d2a38fd7233e255ded21fb26fe36b4796"
+
+[[projects]]
+  name = "github.com/mholt/archiver"
+  packages = ["."]
+  revision = "cdc68dd1f170b8dfc1a0d2231b5bb0967ed67006"
+  version = "v2.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/nwaples/rardecode"
+  packages = ["."]
+  revision = "e06696f847aeda6f39a8f0b7cdff193b7690aef6"
+
+[[projects]]
+  name = "github.com/oleiade/reflections"
+  packages = ["."]
+  revision = "2b6ec3da648e3e834dc41bad8d9ed7f2dc6a9496"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/ulikunitz/xz"
+  packages = [".","internal/hash","internal/xlog","lzma"]
+  revision = "0c6b41e72360850ca4f98dc341fd999726ea007f"
+  version = "v0.5.4"
 
 [[projects]]
   branch = "v2"
@@ -34,6 +58,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "82c955dae67d5c29ee0f0771590864a47762d1b097fc46ba6575f4a7ea40e84d"
+  inputs-digest = "ac5b863130b5426d51ecf2d7fdb7c7023588dca172071b573565699ff9b1d2ba"
   solver-name = "gps-cdcl"
   solver-version = 1

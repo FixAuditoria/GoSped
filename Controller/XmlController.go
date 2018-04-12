@@ -55,13 +55,18 @@ func ProcessarNfeSemValidade(file []byte) (pathArquivo string, nota2 Model.NFe) 
 func ProcessarNfeProcValido(file []byte) (pathArquivo string, nota Model.NfeProc) {
 	xml.Unmarshal(file, &nota)
 	tipo := "nfe"
-	chave := nota.NFe.InfNFe.Id[3:47]
-	cnpj := nota.NFe.InfNFe.Emit.Cnpj
-	ano := "20" + nota.NFe.InfNFe.Id[5:7]
-	mes := nota.NFe.InfNFe.Id[7:9]
-	pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
-	pathArquivo = pathFinal + "/" + chave + ".xml"
-	return pathArquivo, nota
+	if len(nota.NFe.InfNFe.Id) <= 0 {
+		return "", nota
+	} else {
+		chave := nota.NFe.InfNFe.Id[3:47]
+		cnpj := nota.NFe.InfNFe.Emit.Cnpj
+		ano := "20" + nota.NFe.InfNFe.Id[5:7]
+		mes := nota.NFe.InfNFe.Id[7:9]
+		pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+		pathArquivo = pathFinal + "/" + chave + ".xml"
+		return pathArquivo, nota
+	}
+
 }
 
 // TransformarXmlEmByte : Funcao responsavel por receber path do arquivo xml e retornar em byte
@@ -120,7 +125,6 @@ func ProcessarEventoCte(file []byte) (pathArquivo string, procEventoCte Model.Pr
 func ProcessarXmls(arquivo string, conn *bongo.Connection) {
 	xmlByte := TransformarXmlEmByte(arquivo)
 	isNfePro := string(xmlByte[0:70])
-
 	if strings.Contains(isNfePro, "><NFe xmlns=") {
 		pathArquivo, nota := ProcessarNfeSemProcValido(xmlByte)
 		Utilidades.MoverArquivos(arquivo, pathArquivo)
@@ -133,10 +137,14 @@ func ProcessarXmls(arquivo string, conn *bongo.Connection) {
 		Dao.InserirNfeProcSemValidade(Dao.COLLECTIONNFESEMVALIDADE, nota, conn)
 	}
 	// Estrutura com nfe valida
-	if strings.Contains(isNfePro, "<nfeProc") {
+	if strings.Contains(isNfePro, "<nfeProc versao") {
+		fmt.Println(arquivo)
 		pathArquivo, nota := ProcessarNfeProcValido(xmlByte)
-		Utilidades.MoverArquivos(arquivo, pathArquivo)
-		Dao.InserirNfeProc(Dao.COLLECTIONNFEPROC, nota, conn)
+		if pathArquivo != "" {
+			Utilidades.MoverArquivos(arquivo, pathArquivo)
+			Dao.InserirNfeProc(Dao.COLLECTIONNFEPROC, nota, conn)
+		}
+
 	}
 
 	// Evento nfe inutilizada
@@ -157,6 +165,10 @@ func ProcessarXmls(arquivo string, conn *bongo.Connection) {
 		pathArquivo, procEventoCte := ProcessarEventoCte(xmlByte)
 		Utilidades.MoverArquivos(arquivo, pathArquivo)
 		Dao.InserirEventoCte(Dao.COLLECTIONCTEEVENTO, procEventoCte, conn)
+	}
+
+	if strings.Contains(isNfePro, "<cteProc versao") {
+
 	}
 
 }
