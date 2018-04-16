@@ -1,9 +1,14 @@
 package Model
 
+import "github.com/go-bongo/bongo"
+
 type CteProc struct {
-	Cte struct {
+	bongo.DocumentBase `bson:",inline"`
+	Cte                struct {
 		InfCte struct {
-			Ide struct {
+			Versao string `xml:"versao,attr"`
+			Id     string `xml:"Id,attr"`
+			Ide    struct {
 				CUf       string `xml:"cUF"`
 				CCT       string `xml:"cCT"`
 				CFOP      string `xml:"CFOP"`
@@ -50,9 +55,66 @@ type CteProc struct {
 						TpHor string `xml:"tpHor"`
 						HProg string `xml:"hProg"`
 					} `xml:"comHora"`
-					// #### PAREI AQUI ###########
 				} `xml:"Entrega"`
+				Xobs    string `xml:"xObs"`
+				ObsCont struct {
+					XTexto string `xml:"xTexto"`
+				}
 			} `xml:"compl"`
-		} `xml:"infeCte"`
+			Emit struct {
+				CNPJ      string `xml:"CNPJ"`
+				IE        string `xml:"IE"`
+				XNome     string `xml:"xNome"`
+				XFant     string `xml:"xFant"`
+				EnderEmit struct {
+					XLgr    string `xml:"xLgr"`
+					Nro     string `xml:"nro"`
+					XBairro string `xml:"xBairro"`
+					CMun    string `xml:"cMun"`
+					XMun    string `xml:"xMun"`
+					CEP     string `xml:"CEP"`
+					UF      string `xml:"UF"`
+					Fone    string `xml:"fone"`
+				} `xml:"enderEmit"`
+			} `xml:"emit"`
+			Rem struct {
+				CNPJ      string `xml:"CNPJ"`
+				IE        string `xml:"IE"`
+				XNome     string `xml:"xNome"`
+				Fone      string `xml:"fone"`
+				EnderReme struct {
+					XLgr    string `xml:"xLgr"`
+					Nro     string `xml:"nro"`
+					XBairro string `xml:"xBairro"`
+					CMun    string `xml:"cMun"`
+					XMun    string `xml:"xMun"`
+					CEP     string `xml:"CEP"`
+					UF      string `xml:"UF"`
+				} `xml:"enderReme"`
+			} `xml:"rem"`
+			Dest struct {
+				CNPJ      string `xml:"CNPJ"`
+				IE        string `xml:"IE"`
+				XNome     string `xml:"xNome"`
+				Fone      string `xml:"fone"`
+				EnderDest struct {
+					XLgr    string `xml:"xLgr"`
+					Nro     string `xml:"nro"`
+					XBairro string `xml:"xBairro"`
+					CMun    string `xml:"cMun"`
+					XMun    string `xml:"xMun"`
+					CEP     string `xml:"CEP"`
+					UF      string `xml:"UF"`
+				} `xml:"enderDest"`
+			} `xml:"dest"`
+			VPrest struct {
+				VTPrest string `xml:"vTPrest"`
+				VRec    string `xml:"vRec"`
+				Comp    []struct {
+					XNome string `xml:"vTPrest"`
+					VComp string `xml:"vRec"`
+				} `xml:"Comp"`
+			} `xml:"vPrest"`
+		} `xml:"infCte"`
 	} `xml:"CTe"`
 }

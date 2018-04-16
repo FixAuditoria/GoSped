@@ -3,6 +3,7 @@ package Utilidades
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 )
@@ -25,19 +26,25 @@ func LerArquivoSped(caminhoArquivo string) ([]string, error) {
 	return linhas, scanner.Err()
 }
 
-// ListarArquivos :  Apenas uma conversao de nome do glob para ListarArquivos
-func ListarArquivos(caminho string) ([]string, error) {
-	files, err := filepath.Glob(caminho + "*")
+func DiretorioVazio(path string) {
+	diretorio, err := os.Open(path)
 	if err != nil {
-		return nil, err
+		fmt.Println(err.Error())
 	}
-	return files, err
+	defer diretorio.Close()
+	_, err = diretorio.Readdirnames(1)
+	if err == io.EOF {
+		os.Remove(path)
+	}
 }
 
+// ListarArquivosV2 :  Apenas uma conversao de nome do glob para ListarArquivos
 func ListarArquivosV2(caminho string) (files []string, err error) {
 	err = filepath.Walk(caminho, func(path string, info os.FileInfo, err error) error {
 		if !info.IsDir() {
 			files = append(files, path)
+		} else {
+			DiretorioVazio(path)
 		}
 		return nil
 	})

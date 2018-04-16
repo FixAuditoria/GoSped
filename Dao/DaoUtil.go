@@ -20,10 +20,11 @@ const (
 	COLLECTIONC490           = "regC490"
 	COLLECTIONH005           = "regH005"
 	COLLECTIONH010           = "regH010"
-	COLLECTIONDADOSPRODUTOS  = "dadosProdutos"
 	COLLECTIONNFEPROC        = "nfeProc"
 	COLLECTIONNFESEMVALIDADE = "nfeSemValidade"
 	COLLECTIONNFEINUTILIZADA = "nfeInutilizada"
 	COLLECTIONNFEEVENTO      = "nfeEvento"
 	COLLECTIONCTEEVENTO      = "cteEvento"
+	COLLECTIONCTE            = "cteProc"
+	COLLECTIONRESEVENTO      = "resEvento"
 )

@@ -21,6 +21,7 @@ func (i *ImportController) Importar(path string, conn *bongo.Connection) {
 	arquivos, _ := Utilidades.ListarArquivosV2(path)
 	for _, arq := range arquivos {
 		extensao := filepath.Ext(arq)
+		DeleteArquivoVazio(arq)
 		if extensao == ".txt" || extensao == ".TXT" {
 			var spedcontroller SpedController
 			spedcontroller.addDB(arq, conn)
@@ -60,7 +61,11 @@ func (i *ImportController) Importar(path string, conn *bongo.Connection) {
 			os.Remove(arq)
 		}
 
-		if extensao == ".html" || extensao == ".HTML" {
+		if extensao == ".html" || extensao == ".HTML" || extensao == ".htm" || extensao == ".HTM" {
+			os.Remove(arq)
+		}
+
+		if extensao == ".err" || extensao == ".ERR" {
 			os.Remove(arq)
 		}
 

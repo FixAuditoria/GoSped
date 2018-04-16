@@ -42,3 +42,17 @@ func InserirEventoCte(colecao string, procEventoCte Model.ProcEventoCTe, conn *b
 		fmt.Println(err)
 	}
 }
+
+func InserirCteProc(colecao string, procCte Model.CteProc, conn *bongo.Connection) {
+	err := conn.Collection(colecao).Save(&procCte)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func InserirResEvento(colecao string, resEvento Model.ResEvento, conn *bongo.Connection) {
+	err := conn.Collection(colecao).Save(&resEvento)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
