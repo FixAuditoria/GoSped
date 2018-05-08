@@ -29,8 +29,10 @@ func ProcessarXmls(arquivo string, conn *bongo.Connection) {
 	//panic(isNfePro)
 	if strings.Contains(isNfePro, "><NFe xmlns=") && !strings.Contains(isNfePro, "<NFeDFe") {
 		pathArquivo, nota := ProcessarNfeSemProcValido(xmlByte)
-		Utilidades.MoverArquivos(arquivo, pathArquivo)
-		Dao.InserirNfeProcSemValidade(Dao.COLLECTIONNFESEMVALIDADE, nota, conn)
+		if pathArquivo != "" {
+			Utilidades.MoverArquivos(arquivo, pathArquivo)
+			Dao.InserirNfeProcSemValidade(Dao.COLLECTIONNFESEMVALIDADE, nota, conn)
+		}
 	}
 
 	if strings.Contains(isNfePro, "<NFe xmlns:xsi") {

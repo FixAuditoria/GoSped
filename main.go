@@ -1,10 +1,11 @@
 package main
 
 import (
+	"log"
+
 	"github.com/chapzin/GoSped/ConfigTom"
 	"github.com/chapzin/GoSped/Controller"
 	"github.com/go-bongo/bongo"
-	"log"
 )
 
 var cofing2 = ConfigTom.ConfigSped{}
@@ -22,6 +23,7 @@ func init() {
 }
 
 func main() {
+
 	config := &bongo.Config{
 		ConnectionString: "localhost",
 		Database:         "auditoria",

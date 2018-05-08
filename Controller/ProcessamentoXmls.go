@@ -29,14 +29,18 @@ func DeleteArquivoVazio(arquivo string) {
 func ProcessarNfeSemProcValido(file []byte) (pathArquivo string, nota Model.NFe) {
 	xml.Unmarshal(file, &nota)
 	tipo := "nfe"
-	chave := nota.InfNFe.Id[3:47]
-	cnpj := nota.InfNFe.Emit.Cnpj
-	ano := "20" + nota.InfNFe.Id[5:7]
-	mes := nota.InfNFe.Id[7:9]
-	pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
-	pathArquivo = pathFinal + "/" + chave + ".xml"
+	if len(nota.InfNFe.Id) == 47 {
+		chave := nota.InfNFe.Id[3:47]
+		cnpj := nota.InfNFe.Emit.Cnpj
+		ano := "20" + nota.InfNFe.Id[5:7]
+		mes := nota.InfNFe.Id[7:9]
+		pathFinal := Utilidades.CriarEstruturaDePastas(path, cnpj, ano, mes, tipo)
+		pathArquivo = pathFinal + "/" + chave + ".xml"
+		return pathArquivo, nota
+	} else {
+		return "", nota
+	}
 
-	return pathArquivo, nota
 }
 
 func ProcessarResEvento(file []byte) (pathArquivo string, resEvento Model.ResEvento) {
