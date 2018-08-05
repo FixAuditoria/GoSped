@@ -3,7 +3,7 @@ package Dao
 import (
 	"fmt"
 
-	"github.com/chapzin/GoSped/Model"
+	"github.com/FixAuditoria/GoSped/Model"
 	"github.com/go-bongo/bongo"
 )
 

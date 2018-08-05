@@ -3,10 +3,11 @@ package Controller
 import (
 	"encoding/xml"
 	"fmt"
-	"github.com/chapzin/GoSped/Model"
-	"github.com/chapzin/GoSped/Utilidades"
 	"io/ioutil"
 	"os"
+
+	"github.com/FixAuditoria/GoSped/Model"
+	"github.com/FixAuditoria/GoSped/Utilidades"
 )
 
 func DeleteArquivoVazio(arquivo string) {

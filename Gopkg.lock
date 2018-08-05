@@ -9,6 +9,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/chapzin/GoSped"
+  packages = ["ConfigTom","Controller","Dao","Model","Utilidades"]
+  revision = "394c8674771820cdd1825df74795feb6191fa752"
+
+[[projects]]
+  branch = "master"
   name = "github.com/dsnet/compress"
   packages = [".","bzip2","bzip2/internal/sais","internal","internal/errors","internal/prefix"]
   revision = "cc9eb1d7ad760af14e8f918698f745e80377af4f"
@@ -58,6 +64,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ac5b863130b5426d51ecf2d7fdb7c7023588dca172071b573565699ff9b1d2ba"
+  inputs-digest = "871e04c7313d7777b99eefdfbbb7daada1d79307fa288c964c783daecf5464b9"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -7,8 +7,9 @@ import (
 	"github.com/go-bongo/bongo"
 
 	"fmt"
-	"github.com/chapzin/GoSped/Dao"
-	"github.com/chapzin/GoSped/Utilidades"
+
+	"github.com/FixAuditoria/GoSped/Dao"
+	"github.com/FixAuditoria/GoSped/Utilidades"
 )
 
 var path string

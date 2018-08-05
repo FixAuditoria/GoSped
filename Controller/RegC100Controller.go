@@ -1,7 +1,7 @@
 package Controller
 
 import (
-	"github.com/chapzin/GoSped/Model"
+	"github.com/FixAuditoria/GoSped/Model"
 )
 
 // RegC100Controller : Responsavel por fazer validacoes no registro C100 do sped

@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chapzin/GoSped/Dao"
+	"github.com/FixAuditoria/GoSped/Dao"
 
 	"github.com/go-bongo/bongo"
 
-	"github.com/chapzin/GoSped/ConfigTom"
-	"github.com/chapzin/GoSped/Model"
+	"github.com/FixAuditoria/GoSped/ConfigTom"
+	"github.com/FixAuditoria/GoSped/Model"
 
-	"github.com/chapzin/GoSped/Utilidades"
+	"github.com/FixAuditoria/GoSped/Utilidades"
 )
 
 // SpedController : Responsavel por adicionar os dados do sped e validar o conteudo

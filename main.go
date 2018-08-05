@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/chapzin/GoSped/ConfigTom"
-	"github.com/chapzin/GoSped/Controller"
+	"github.com/FixAuditoria/GoSped/ConfigTom"
+	"github.com/FixAuditoria/GoSped/Controller"
 	"github.com/go-bongo/bongo"
 )
 

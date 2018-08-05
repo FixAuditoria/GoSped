@@ -6,9 +6,10 @@ import (
 	"github.com/go-bongo/bongo"
 
 	"fmt"
-	"github.com/chapzin/GoSped/Utilidades"
-	"github.com/mholt/archiver"
 	"os"
+
+	"github.com/FixAuditoria/GoSped/Utilidades"
+	"github.com/mholt/archiver"
 )
 
 // ImportController : Responsavel por separar e executar os comandos nos arquivos txt, csv e xml
