@@ -41,7 +41,7 @@ func (i *ImportController) Importar(path string, conn *bongo.Connection) {
 		}
 
 		if extensao == ".rar" || extensao == ".RAR" {
-			err := archiver.Rar.Open(arq, "importar/")
+			err := archiver.Unarchive(arq, "importar/")
 			if err != nil {
 				fmt.Println(err.Error())
 			} else {
@@ -50,7 +50,7 @@ func (i *ImportController) Importar(path string, conn *bongo.Connection) {
 		}
 
 		if extensao == ".zip" || extensao == ".ZIP" {
-			err := archiver.Zip.Open(arq, "importar/")
+			err := archiver.Unarchive(arq, "importar/")
 			if err != nil {
 				fmt.Println(err.Error())
 			} else {
